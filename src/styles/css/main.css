@@ -1,0 +1,22 @@
+:root {
+    --primaryTheme: '#e38716';
+    --secondaryTheme: '#fff5ea';
+}
+
+* {
+    font-family: Inter, Arial, Helvetica !important;
+    scroll-behavior: smooth;
+}
+
+@keyframes moveRight {
+    0% {
+        transform: translate(0px);
+    }
+    100% {
+        transform: translate(8px);
+    }
+}
+
+.arrow {
+    animation: 1s ease-in-out 0s infinite alternate none running moveRight;
+}
