@@ -1,24 +1,56 @@
-
-import { RulerDimensionLine, MoveRight } from 'lucide-react';
-import { Link, useLocation } from 'react-router';
+import { RulerDimensionLine, MoveRight, Sun, Moon } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 export const Header = () => {
-
     const location = useLocation();
     const isComparePage = location.pathname === '/compare';
+    const [isDarkTheme, setDarkTheme] = useState<boolean>(false);
+
+    // Toggle dark class on <html> element
+    useEffect(() => {
+        const html = document.documentElement; // ✅ this is correct
+        if (isDarkTheme) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+    }, [isDarkTheme]);
+
+    // This changes the theme
+    const toggleTheme = () => setDarkTheme((prev) => {
+        return !prev
+    });
 
     return (
-        <header className="h-[90px] w-full flex justify-between items-center px-20 py-6">
-            <Link to="/"><RulerDimensionLine strokeWidth={1.5} size={48} className="text-yellow-600" /></Link>
-            {!isComparePage && (
-                <Link
-                    to="/compare"
-                    className="text-sm flex space-x-3 text-slate-900 items-center underline hover:opacity-80 transition-all"
+        <header className="h-[90px] w-full flex justify-between items-center px-20 py-6 transition-colors">
+            <Link to="/">
+                <RulerDimensionLine strokeWidth={1.5} size={48} className="text-yellow-600" />
+            </Link>
+
+            <span className="flex space-x-5 items-center">
+                {!isComparePage && (
+                    <p
+                        className="text-sm flex space-x-3 text-slate-800 items-center underline hover:opacity-80 transition-all"
+                    >
+                        <span>Change themes here</span>
+                        <MoveRight className="arrow block relative" strokeWidth={1.5} />
+                    </p>
+                )}
+
+                <button
+                    type="button"
+                    onClick={toggleTheme}
+                    aria-label="Toggle Theme"
+                    className="rounded-full p-2 flex justify-center items-center cursor-pointer transition-all"
                 >
-                    <span>Compare your AIs</span>
-                    <MoveRight className="arrow block relative" strokeWidth={1.5} />
-                </Link>
-            )}
+                    {isDarkTheme ? (
+                        <Moon className="text-slate-800" strokeWidth={1.4} />
+                    ) : (
+                        <Sun className="text-amber-700" strokeWidth={1.4} />
+                    )}
+                </button>
+            </span>
         </header>
     );
 };
