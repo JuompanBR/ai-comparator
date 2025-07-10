@@ -31,7 +31,7 @@ export const Hero = () => {
           </Link>
           <a
             href="#how-to"
-            className="rounded-sm py-1.5 px-3 lg:px-6 px-6 text-amber-700 text-base lg:text-lg font-bold bg-[#e38716]/20 hover:bg-[#e38716]/25 transition-all shadow-xs"
+            className="rounded-sm py-1.5 px-3 lg:px-6 text-amber-700 text-base lg:text-lg font-bold bg-[#e38716]/20 hover:bg-[#e38716]/25 transition-all shadow-xs"
           >
             How does it work ?
           </a>
