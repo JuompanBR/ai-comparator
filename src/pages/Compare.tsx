@@ -1,26 +1,31 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Header } from "../components/Header";
 
 export const Compare = () => {
-  const [tag1, setTag1] = useState('');
-  const [tag2, setTag2] = useState('');
+  const [tag1, setTag1] = useState("");
+  const [tag2, setTag2] = useState("");
   const [submittedTags, setSubmittedTags] = useState<string[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (tag1.trim()) {
       setSubmittedTags([...submittedTags, tag1.trim()]);
-      setTag1('');
-      setTag2('');
+      setTag1("");
+      setTag2("");
     }
   };
 
   return (
     <div className="w-full min-h-screen relative fadeIn flex flex-col items-center bg-white">
       <Header />
-      <h1 className="text-3xl font-bold text-center text-slate-800 mt-8">Comparison Form</h1>
+      <h1 className="text-3xl font-bold text-center text-slate-800 mt-8">
+        Comparison Form
+      </h1>
 
-      <form onSubmit={handleSubmit} className="w-full max-w-md mt-6 px-4 space-y-4">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md mt-6 px-4 space-y-4"
+      >
         <input
           type="text"
           value={tag1}
