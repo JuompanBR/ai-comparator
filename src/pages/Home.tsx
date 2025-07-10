@@ -3,21 +3,23 @@ import { Footer } from "../components/Footer";
 import { CustomDivider } from "../components/CustomDivider";
 import { HowTo } from "../components/HowTo";
 import { Hero } from "../components/Hero";
+import { Link } from "react-router";
+import { MoveRight } from "lucide-react";
 
 // bg-[#fff5ea]
 export const Home = () => {
   return (
     <>
-      <div className="w-full min-h-screen flex flex-col container mx-auto overflow-x-hidden">
+      <div className="w-full min-h-screen flex flex-col container mx-auto overflow-x-hidden fadeIn">
         <Header />
         <main className="items-center justify-center flex-1 p-6 text-gray-800 relative">
           <Hero />
           <br />
           <CustomDivider />
           <HowTo />
-          <div className="container mx-auto flex flex-col justify-center items-center bg-[#fff5ea] p-3">
-            <span>Find the right fit for your free-tier</span>
-            
+          <div className="w-[70%] mx-auto flex flex-col justify-center items-center bg-[#fff5ea] py-12 my-24 rounded-xl gap-y-5 text-center border border-amber-100">
+            <span className="text-4xl my-5 font-bold text-amber-700 leading-relaxed">Find the best conversational AI from the <br /> available free-tiers</span>
+            <Link to='/compare' className="rounded-md bg-white py-1.5 px-6 text-amber-600 text-base lg:text-lg font-medium flex justify-center items-center gap-x-3 border border-amber-100">Compare your AIs <MoveRight className="arrow block relative" strokeWidth={1.5} /></Link>
           </div>
         </main>
         <Footer />

@@ -8,6 +8,23 @@
     scroll-behavior: smooth;
 }
 
+.arrow {
+    animation: 1s ease-in-out 0s infinite alternate none running moveRight;
+}
+
+.fadeIn {
+    animation: fadeIn 0.35s ease forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 @keyframes moveRight {
     0% {
         transform: translate(0px);
@@ -15,8 +32,4 @@
     100% {
         transform: translate(8px);
     }
-}
-
-.arrow {
-    animation: 1s ease-in-out 0s infinite alternate none running moveRight;
 }
