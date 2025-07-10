@@ -9,7 +9,7 @@ export const Header = () => {
 
   // Toggle dark class on <html> element
   useEffect(() => {
-    const html = document.documentElement; // ✅ this is correct
+    const html = document.documentElement;
     if (isDarkTheme) {
       html.classList.add("dark");
     } else {
@@ -17,19 +17,18 @@ export const Header = () => {
     }
   }, [isDarkTheme]);
 
-  // This changes the theme
+  // function to toggle the theme
   const toggleTheme = () =>
     setDarkTheme((prev) => {
       return !prev;
     });
 
   return (
-    <header className="h-[90px] w-full flex justify-between items-center px-5 lg:px-20 py-6 transition-colors dark:bg-slate-700">
+    <header className="h-[90px] w-full flex justify-between items-center px-5 lg:px-20 py-6 transition-colors bg-white dark:bg-slate-700">
       <Link to="/">
         <RulerDimensionLine
           strokeWidth={1.5}
-          size={48}
-          className="text-yellow-600 lg:size-[48px] size-[45px]"
+          className="text-yellow-600 lg:size-[48px] size-[38px]"
         />
       </Link>
 
