@@ -97,7 +97,7 @@ const CompareForm = () => {
                         value={criteria}
                         onChange={(e) => setCriteria(e.target.value)}
                         onKeyUp={(e) => {
-                            if (e.key == "Enter") {
+                            if (e.key == "Space") {
                                 storeDispatcher(
                                     add({
                                         data: {
@@ -119,7 +119,7 @@ const CompareForm = () => {
                         value={aiProducts}
                         onChange={(e) => setAIs(e.target.value)}
                         onKeyUp={(e) => {
-                            if (e.key == "Enter") {
+                            if (e.key == "Space") {
                                 storeDispatcher(
                                     addModel({
                                         data: {

@@ -17,7 +17,7 @@ const Hero = () => {
             size={75}
             className="text-yellow-600"
           />{" "}
-          <span>{app_name}s</span>
+          <span>{app_name}</span>
         </span>
         <p className="text-slate-600 text-lg lg:text-2xl font-normal leading-normal">
           The{" "}
