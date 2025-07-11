@@ -1,6 +1,6 @@
 interface ComparismResponseItem {
-    id: string,
-    text: string
+    id?: string,
+    text?: string
 };
 
 export default ComparismResponseItem;

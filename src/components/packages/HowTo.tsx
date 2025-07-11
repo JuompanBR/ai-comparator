@@ -2,8 +2,7 @@ const HowTo = () => {
   return (
     <>
       <h1
-        id="how-to"
-        className="text-center font-bold text-2xl lg:text-[1.85rem] text-slate-800 -mt-5 pb-10"
+        className="text-center font-bold text-2xl lg:text-[1.85rem] text-slate-800 -mt-6 pb-10"
       >
         How to use
       </h1>

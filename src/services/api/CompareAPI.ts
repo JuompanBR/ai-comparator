@@ -15,8 +15,8 @@ class CompareAPI implements CompareAPIType {
                     'Content-Type': 'application/json'
                 }
             });
+            
             const result = await response.json();
-            console.log('Data:', result);
             return result;
         } catch (error) {
             console.error('Error:', error);
