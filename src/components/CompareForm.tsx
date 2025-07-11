@@ -90,45 +90,49 @@ const CompareForm = () => {
                     </div>}
                 </div>
                 <div className={`flex flex-col relative max-w-md w-full mx-auto ${selectedCriteria.length > 0 || selectedModels.length > 0 ? 'mt-15' : 'mt-12'}`}>
-                    <label htmlFor="criteria" className="text-slate-400 text-xs mb-2">Type criterion, press enter</label>
+                    <label htmlFor="criteria" className="text-slate-400 text-xs mb-2">Type criterion, add space to save</label>
                     <input
                         type="text"
                         name="criteria"
                         value={criteria}
                         onChange={(e) => setCriteria(e.target.value)}
                         onKeyUp={(e) => {
-                            if (e.key == "Space") {
-                                storeDispatcher(
-                                    add({
-                                        data: {
-                                            id: crypto.randomUUID(),
-                                            data: criteria?.trim()
-                                        }
-                                    })
-                                );
-                                setCriteria("");
+                            if (e.code === "Space") {
+                                if (criteria.trim().length > 0) {
+                                    storeDispatcher(
+                                        add({
+                                            data: {
+                                                id: crypto.randomUUID(),
+                                                data: criteria?.trim()
+                                            }
+                                        })
+                                    );
+                                    setCriteria("");
+                                }
                             }
                         }}
                         placeholder="Criteria"
                         className="w-full p-2 border border-gray-300 rounded mb-6 placeholder-slate-400"
                         required />
-                    <label htmlFor="criteria" className="text-slate-400 text-xs mb-2">Type model, press enter</label>
+                    <label htmlFor="criteria" className="text-slate-400 text-xs mb-2">Type model, add space to save</label>
                     <input
                         type="text"
                         name="models"
                         value={aiProducts}
                         onChange={(e) => setAIs(e.target.value)}
                         onKeyUp={(e) => {
-                            if (e.key == "Space") {
-                                storeDispatcher(
-                                    addModel({
-                                        data: {
-                                            id: crypto.randomUUID(),
-                                            data: aiProducts?.trim()
-                                        }
-                                    })
-                                );
-                                setAIs("");
+                            if (e.code === "Space") {
+                                if (aiProducts.trim().length > 0) {
+                                    storeDispatcher(
+                                        addModel({
+                                            data: {
+                                                id: crypto.randomUUID(),
+                                                data: aiProducts?.trim()
+                                            }
+                                        })
+                                    );
+                                    setAIs("");
+                                }
                             }
                         }}
                         placeholder="Conversational AI"

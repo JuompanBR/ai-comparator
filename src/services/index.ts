@@ -1,3 +1,3 @@
-import CompareAPI from "./api/compareAPI";
+import CompareAPI from "./api/CompareAPI";
 
 export { CompareAPI };

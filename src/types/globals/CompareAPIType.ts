@@ -3,7 +3,7 @@ import { ComparismCriteriaItem } from "./ComparismCriteriaItem";
 
 type CompareAPIType = {
   data: ComparismCriteriaItem[];
-  compare(): Promise<ComparismResponseItem[]>;
+  compare( data: ComparismCriteriaItem[]): Promise<ComparismResponseItem[]>;
 };
 
 export default CompareAPIType;
