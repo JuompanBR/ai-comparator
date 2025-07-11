@@ -136,14 +136,14 @@ const CompareForm = () => {
                         required
                     />
                     <form
-                        onSubmit={handleSubmit}
                         className="w-full relative"
                     >
 
                         <Button
                             buttonType="submit"
-                            disabled={loading}
+                            disabled={loading || selectedCriteria.length <= 0 || selectedModels.length <= 0}
                             classProps="!w-full"
+                            clickEvent={() => handleSubmit}
                         >
                             {loading == true ? <Loader className="animate-spin" /> : "Compare"}
                         </Button>

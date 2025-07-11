@@ -13,10 +13,11 @@ const Button = ({ children, classProps, clickEvent, buttonType = "button", disab
     return (
         <>
             <button
-                className={`${classProps} cursor-pointer min-w-24 rounded-sm bg-[#e38716] py-1.5 px-3 lg:px-6 text-white font-bold hover:bg-[#e38716]/80 transition-all shadow-sm flex justify-center items-center disabled:opacity-30 disabled:hover:opacity-30`}
+                className={`${classProps} min-w-24 rounded-sm bg-[#e38716] py-1.5 px-3 lg:px-6 text-white font-bold ${disabled ? '' : 'hover:bg-[#e38716]/80 cursor-pointer shadow-sm'} transition-all flex justify-center items-center disabled:opacity-30`}
                 onClick={clickEvent}
                 type={buttonType}
                 disabled={disabled}
+                title={`${disabled ? 'This action cannot be performed!' : 'Click Me!'}`}
             >
                 {children}
             </button>
