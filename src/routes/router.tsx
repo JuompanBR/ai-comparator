@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home";
-import Compare from "../pages/Compare";
+import { Home, Compare } from "../pages";
 
 const router = createBrowserRouter([
   { path: "/", element: <Home /> },

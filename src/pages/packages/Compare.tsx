@@ -1,4 +1,4 @@
-import { Header, Footer } from "../components";
+import { Header, Footer, CompareForm } from "../../components";
 
 const Compare = () => {
   return (
@@ -8,7 +8,7 @@ const Compare = () => {
         Comparison Form
       </h1>
       <div className="w-full relative block flex-1">
-        
+        <CompareForm />
       </div>
       <Footer />
     </div>

@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useState } from "react";
+import { CompareAPI } from "../../services";
 
 const CompareForm = () => {
 
@@ -6,8 +7,20 @@ const CompareForm = () => {
     const [tag2, setTag2] = useState("");
     const [submittedTags, setSubmittedTags] = useState<string[]>([]);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const response = confirm("Do you confirm this comparism ?");
+
+        if (response) {
+
+            const fakeData = [{
+                id: '1',
+                data: "This is just test data"
+            }]
+            // fetch using the mock server
+            const result = await CompareAPI.compare(fakeData);
+            
+        }
         if (tag1.trim()) {
             setSubmittedTags([...submittedTags, tag1.trim()]);
             setTag1("");
@@ -18,7 +31,7 @@ const CompareForm = () => {
         <>
             <form
                 onSubmit={handleSubmit}
-                className="w-full max-w-md mt-6 px-4 space-y-4"
+                className="w-full max-w-md mt-6 px-4 space-y-4 relative mx-auto"
             >
                 <input
                     type="text"
