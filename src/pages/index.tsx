@@ -1,4 +1,4 @@
-import Compare from "./packages/Compare";
-import Home from "./packages/Home";
+import Compare from "./Compare";
+import Home from "./Home";
 
 export { Compare, Home };

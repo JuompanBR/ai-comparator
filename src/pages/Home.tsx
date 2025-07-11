@@ -1,4 +1,4 @@
-import { Header, Footer, CustomDivider, Hero, HowTo } from "../../components";
+import { Header, Footer, CustomDivider, Hero, HowTo } from "../components";
 import { Link } from "react-router";
 import { MoveRight } from "lucide-react";
 

@@ -1,4 +1,4 @@
-import { Header, Footer, CompareForm } from "../../components";
+import { Header, Footer, CompareForm } from "../components";
 
 const Compare = () => {
   return (

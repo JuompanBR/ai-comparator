@@ -1,13 +1,13 @@
 import { Key, useState } from "react";
-import { CompareAPI } from "../../services";
+import { CompareAPI } from "../services";
 import Button from "./Button";
 import TagInput from "./TagInput";
-import { AIModelItemType, ComparismCriteriaItem, ComparismResponseItem } from "../../types";
+import { AIModelItemType, ComparismCriteriaItem, ComparismResponseItem } from "../types";
 import { Loader, Ban } from "lucide-react";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useDispatch, useSelector } from "react-redux";
-import { add, remove } from '../../stores/slices/comparismCriteriaSlice';
-import { addModel, removeModel } from '../../stores/slices/aiModelsSlice';
+import { add, remove } from '../stores/slices/comparismCriteriaSlice';
+import { addModel, removeModel } from '../stores/slices/aiModelsSlice';
 
 const CompareForm = () => {
 
