@@ -9,7 +9,7 @@ const Hero = () => {
     <>
       <section
         id="landing-text"
-        className="w-full flex justify-center items-center flex-col space-y-9 h-[59vh] relative text-center"
+        className="w-full flex justify-center items-center flex-col space-y-9 h-[63vh] relative text-center"
       >
         <span className="lg:text-[3.4rem] text-4xl font-bold text-yellow-600 flex flex-col space-y-3 md:space-y-0 md:flex-row md:space-x-5  justify-center items-center">
           <RulerDimensionLine

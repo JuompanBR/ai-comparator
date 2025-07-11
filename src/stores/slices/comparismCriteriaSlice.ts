@@ -11,7 +11,7 @@ const comparismCriteriaSlice = createSlice({
             state.comparismCriteria.push(action.payload.data)
         },
         remove: (state: ComparismCriteriaState, action: { payload: { id: string } }) => {
-            state.comparismCriteria = state.comparismCriteria.filter((value: ComparismCriteriaItem) => value.id != action.payload.id)
+            state.comparismCriteria = state.comparismCriteria.filter((value: ComparismCriteriaItem) => value.id !== action.payload.id)
         }
 
     },

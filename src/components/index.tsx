@@ -6,6 +6,7 @@ import Footer from "./packages/Footer";
 import CustomDivider from "./packages/CustomDivider";
 import Loader from "./packages/Loader";
 import Button from "./packages/Button";
+import TagInput from "./packages/tagInput";
 
 
-export { CompareForm, CustomDivider, Hero, Header, Footer, HowTo, Loader, Button };
+export { CompareForm, CustomDivider, Hero, Header, Footer, HowTo, Loader, Button, TagInput };
