@@ -2,6 +2,9 @@ import { Link } from "react-router";
 import { RulerDimensionLine } from "lucide-react";
 
 export const Hero = () => {
+
+  const app_name = import.meta.env.VITE_APPLICATION_NAME;
+
   return (
     <>
       <section
@@ -14,7 +17,7 @@ export const Hero = () => {
             size={75}
             className="text-yellow-600"
           />{" "}
-          <span>AI-Comparator</span>
+          <span>{app_name}s</span>
         </span>
         <p className="text-slate-600 text-lg lg:text-2xl font-normal leading-normal">
           The{" "}
