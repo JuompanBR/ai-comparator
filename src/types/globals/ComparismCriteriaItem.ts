@@ -7,4 +7,4 @@ interface ComparismCriteriaState {
     comparismCriteria: ComparismCriteriaItem[];
 };
 
-export type { ComparismCriteriaItem, ComparismCriteriaState};
+export type { ComparismCriteriaItem, ComparismCriteriaState };

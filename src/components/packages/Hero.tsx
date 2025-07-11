@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { RulerDimensionLine } from "lucide-react";
 
-export const Hero = () => {
+const Hero = () => {
 
   const app_name = import.meta.env.VITE_APPLICATION_NAME;
 
@@ -43,3 +43,5 @@ export const Hero = () => {
     </>
   );
 };
+
+export default Hero;

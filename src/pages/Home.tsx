@@ -1,13 +1,8 @@
-import { Header } from "../components/Header";
-import { Footer } from "../components/Footer";
-import { CustomDivider } from "../components/CustomDivider";
-import { HowTo } from "../components/HowTo";
-import { Hero } from "../components/Hero";
+import { Header, Footer, CustomDivider, Hero, HowTo } from "../components";
 import { Link } from "react-router";
 import { MoveRight } from "lucide-react";
 
-// bg-[#fff5ea]
-export const Home = () => {
+const Home = () => {
   return (
     <>
       <div className="w-full min-h-screen flex flex-col container mx-auto overflow-x-hidden fadeIn bg-white">
@@ -36,3 +31,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

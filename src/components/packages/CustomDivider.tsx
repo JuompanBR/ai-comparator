@@ -1,4 +1,4 @@
-export const CustomDivider = () => {
+const CustomDivider = () => {
   return (
     <>
       <div
@@ -8,3 +8,4 @@ export const CustomDivider = () => {
     </>
   );
 };
+export default CustomDivider;

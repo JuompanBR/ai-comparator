@@ -1,4 +1,4 @@
-export const HowTo = () => {
+const HowTo = () => {
   return (
     <>
       <h1
@@ -32,3 +32,5 @@ export const HowTo = () => {
     </>
   );
 };
+
+export default HowTo;

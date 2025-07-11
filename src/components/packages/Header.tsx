@@ -2,7 +2,7 @@ import { RulerDimensionLine, MoveRight, Sun, Moon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-export const Header = () => {
+const Header = () => {
   const location = useLocation();
   const isComparePage = location.pathname === "/compare";
   const [isDarkTheme, setDarkTheme] = useState<boolean>(false);
@@ -24,7 +24,7 @@ export const Header = () => {
     });
 
   return (
-    <header className="h-[90px] w-full flex justify-between items-center px-5 lg:px-20 py-6 transition-colors bg-white dark:bg-slate-700">
+    <header className="h-[90px] w-full flex justify-between items-center px-5 lg:px-20 py-6 transition-colors">
       <Link to="/">
         <RulerDimensionLine
           strokeWidth={1.5}
@@ -56,3 +56,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;

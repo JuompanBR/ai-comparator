@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ComparismCriteriaItem, ComparismCriteriaState } from "../types/comparismCriteriaItem";
+import { ComparismCriteriaItem, ComparismCriteriaState } from "../../types";
 
 const comparismCriteriaSlice = createSlice({
     name: 'comparismCounter',
