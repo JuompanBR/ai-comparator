@@ -6,8 +6,8 @@ import { Loader, Ban } from "lucide-react";
 
 const CompareForm = () => {
 
-    const [tag1, setTag1] = useState("");
-    const [tag2, setTag2] = useState("");
+    const [criteria, setCriteria] = useState("");
+    const [aiProducts, setAIs] = useState("");
     const [submittedTags, setSubmittedTags] = useState<string[]>([]);
     const [comparism, setComparism] = useState<ComparismResponseItem>({});
     const [loading, setLoading] = useState<boolean>(false);
@@ -42,10 +42,10 @@ const CompareForm = () => {
                 document.getElementById("comparismReport")?.scrollIntoView({ behavior: "smooth" });
             }, 300)
         }
-        // if (tag1.trim()) {
-        //     setSubmittedTags([...submittedTags, tag1.trim()]);
-        //     setTag1("");
-        //     setTag2("");
+        // if (criteria.trim()) {
+        //     setSubmittedTags([...submittedTags, criteria.trim()]);
+        //     setCriteria("");
+        //     setAIs("");
         // }
     };
     return (
@@ -56,16 +56,16 @@ const CompareForm = () => {
             >
                 <input
                     type="text"
-                    value={tag1}
-                    onChange={(e) => setTag1(e.target.value)}
-                    placeholder="Tag 1"
+                    value={criteria}
+                    onChange={(e) => setCriteria(e.target.value)}
+                    placeholder="Criteria"
                     className="w-full p-2 border border-gray-300 rounded"
                 />
                 <input
                     type="text"
-                    value={tag2}
-                    onChange={(e) => setTag2(e.target.value)}
-                    placeholder="Tag 2"
+                    value={aiProducts}
+                    onChange={(e) => setAIs(e.target.value)}
+                    placeholder="Conversational AI"
                     className="w-full p-2 border border-gray-300 rounded"
                 />
                 <Button
