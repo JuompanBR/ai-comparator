@@ -102,8 +102,10 @@ const CompareForm = () => {
                             <td className="px-4 py-2 text-lg text-amber-700">{comparism.text}</td>
                         </tr>
                     </tbody>
-                    <tfoot className="border-transparent">
-                        <button type="button" onClick={handleClear} className="cursor-pointer opacity-70 hover:opacity-100 flex space-x-1 items-center text-amber-600 border border-gray-300 py-1.5 px-2.5 rounded-full"><span>Clear</span> <Ban size={19}/></button>
+                    <tfoot className="relative">
+                        <div className="relative float-right p-2 w-full flex flex-row-reverse">
+                            <button type="button" onClick={handleClear} className="cursor-pointer opacity-70 hover:opacity-100 flex space-x-1 justify-center items-center text-sm text-amber-600 border border-gray-200 py-1.5 px-2.5 rounded-full"><span>Clear</span> <Ban size={18}/></button>
+                        </div>
                     </tfoot>
                 </table>
             </section>}
