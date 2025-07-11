@@ -73,7 +73,7 @@ const CompareForm = () => {
             <div className="w-full max-w-5xl mt-6 px-4 space-y-4 relative mx-auto">
                 <div ref={selectionsBox} className="w-full relative flex flex-wrap gap-y-5 justify-center items-start">
                     {selectedCriteria.length > 0 && <div className={`w-full lg:w-1/2 relative block text-center ${selectedModels.length > 0 ? 'border-r' : ''} lg:pe-9 border-slate-200`}>
-                        <h2 id="comparismReport" className="font-normal text-lg text-slate-700 my-9">Set your Criteria</h2>
+                        <h2 className="font-normal text-lg text-slate-700 my-9">Set your Criteria</h2>
                         <div ref={tagInputs} className="relative flex flex-wrap gap-4 justify-center items-center transition-all">
                             {selectedCriteria.map((tag: ComparismCriteriaItem) => (
                                 <TagInput id={tag.id} key={tag.id} onClickEvent={() => storeDispatcher(remove({ id: tag.id }))}>{tag.data}</TagInput>
@@ -81,7 +81,7 @@ const CompareForm = () => {
                         </div>
                     </div>}
                     {selectedModels.length > 0 && <div className="w-full lg:w-1/2 relative block text-center lg:ps-9">
-                        <h2 id="comparismReport" className="font-normal text-lg text-slate-700 my-9">Set your Models</h2>
+                        <h2 className="font-normal text-lg text-slate-700 my-9">Set your Models</h2>
                         <div ref={modelsInput} className="relative flex flex-wrap gap-4 justify-center items-center transition-all">
                             {selectedModels.map((tag: AIModelItemType) => (
                                 <TagInput id={tag.id} key={tag.id} onClickEvent={() => storeDispatcher(removeModel({ id: tag.id }))}>{tag.data}</TagInput>
