@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import comparismCriteriaReducer from "./slices/comparismCriteriaSlice";
+import aiModelsReducer from "./slices/aiModelsSlice";
 
 const appStore = configureStore({
   reducer: {
-    comparismCriteria: comparismCriteriaReducer
+    comparismCriteria: comparismCriteriaReducer,
+    aiModels: aiModelsReducer
   },
 });
 

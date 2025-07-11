@@ -2,18 +2,23 @@ import { Key, useState } from "react";
 import { CompareAPI } from "../../services";
 import Button from "./Button";
 import TagInput from "./TagInput";
-import { ComparismCriteriaItem, ComparismResponseItem } from "../../types";
+import { AIModelItemType, ComparismCriteriaItem, ComparismResponseItem } from "../../types";
 import { Loader, Ban } from "lucide-react";
 import { useAutoAnimate } from '@formkit/auto-animate/react';
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from '../../stores/slices/comparismCriteriaSlice';
+import { addModel, removeModel } from '../../stores/slices/aiModelsSlice';
 
 const CompareForm = () => {
 
     const selectedCriteria = useSelector((state: any) => state.comparismCriteria.comparismCriteria);
+    const selectedModels = useSelector((state: any) => state.aiModels.aiModels);
     const storeDispatcher = useDispatch();
 
-    const [tagInputs, enableAnimations] = useAutoAnimate(/* optional config */)
+    const [tagInputs, enableAnimations] = useAutoAnimate();
+    const [modelsInput, enableModelsAnimations] = useAutoAnimate();
+    const [selectionsBox, enableSelectionsBoxAnimations] = useAutoAnimate();
+
     const [criteria, setCriteria] = useState("");
     const [aiProducts, setAIs] = useState("");
     const [submittedTags, setSubmittedTags] = useState<string[]>([]);
@@ -65,53 +70,85 @@ const CompareForm = () => {
     };
     return (
         <>
-            <div className="w-full max-w-md mt-6 px-4 space-y-4 relative mx-auto">
-                <h2 id="comparismReport" className="font-normal text-lg text-slate-700 my-7">Set your Criteria</h2>
-                <div ref={tagInputs} className="relative flex flex-wrap gap-4 justify-center items-center transition-all">
-                    {selectedCriteria.map((tag: ComparismCriteriaItem) => (
-                        <TagInput id={tag.id} key={tag.id}>{tag.data}</TagInput>
-                    ))}
+            <div className="w-full max-w-5xl mt-6 px-4 space-y-4 relative mx-auto">
+                <div ref={selectionsBox} className="w-full relative flex flex-wrap gap-y-5 justify-center items-start">
+                    {selectedCriteria.length > 0 && <div className={`w-full lg:w-1/2 relative block text-center ${selectedModels.length > 0 ? 'border-r' : ''} lg:pe-9 border-slate-200`}>
+                        <h2 id="comparismReport" className="font-normal text-lg text-slate-700 my-9">Set your Criteria</h2>
+                        <div ref={tagInputs} className="relative flex flex-wrap gap-4 justify-center items-center transition-all">
+                            {selectedCriteria.map((tag: ComparismCriteriaItem) => (
+                                <TagInput id={tag.id} key={tag.id} onClickEvent={() => storeDispatcher(remove({ id: tag.id }))}>{tag.data}</TagInput>
+                            ))}
+                        </div>
+                    </div>}
+                    {selectedModels.length > 0 && <div className="w-full lg:w-1/2 relative block text-center lg:ps-9">
+                        <h2 id="comparismReport" className="font-normal text-lg text-slate-700 my-9">Set your Models</h2>
+                        <div ref={modelsInput} className="relative flex flex-wrap gap-4 justify-center items-center transition-all">
+                            {selectedModels.map((tag: AIModelItemType) => (
+                                <TagInput id={tag.id} key={tag.id} onClickEvent={() => storeDispatcher(removeModel({ id: tag.id }))}>{tag.data}</TagInput>
+                            ))}
+                        </div>
+                    </div>}
                 </div>
-                <br />
-                <input
-                    type="text"
-                    value={criteria}
-                    onChange={(e) => setCriteria(e.target.value)}
-                    onKeyUp={(e) => {
-                        if (e.key == "Enter") {
-                            storeDispatcher(
-                                add({
-                                    data: {
-                                        id: crypto.randomUUID(),
-                                        data: criteria?.trim()
-                                    }
-                                })
-                            );
-                            setCriteria("");
-                        }
-                    }}
-                    placeholder="Criteria"
-                    className="w-full p-2 border border-gray-300 rounded"
-                    required />
-                <form
-                    onSubmit={handleSubmit}
-                    className=""
-                >
+                <div className={`flex flex-col relative max-w-md w-full mx-auto ${selectedCriteria.length > 0 || selectedModels.length > 0 ? 'mt-15' : 'mt-12'}`}>
+                    <label htmlFor="criteria" className="text-slate-400 text-xs mb-2">Type criterion, press enter</label>
                     <input
                         type="text"
+                        name="criteria"
+                        value={criteria}
+                        onChange={(e) => setCriteria(e.target.value)}
+                        onKeyUp={(e) => {
+                            if (e.key == "Enter") {
+                                storeDispatcher(
+                                    add({
+                                        data: {
+                                            id: crypto.randomUUID(),
+                                            data: criteria?.trim()
+                                        }
+                                    })
+                                );
+                                setCriteria("");
+                            }
+                        }}
+                        placeholder="Criteria"
+                        className="w-full p-2 border border-gray-300 rounded mb-6 placeholder-slate-400"
+                        required />
+                    <label htmlFor="criteria" className="text-slate-400 text-xs mb-2">Type model, press enter</label>
+                    <input
+                        type="text"
+                        name="models"
                         value={aiProducts}
                         onChange={(e) => setAIs(e.target.value)}
+                        onKeyUp={(e) => {
+                            if (e.key == "Enter") {
+                                storeDispatcher(
+                                    addModel({
+                                        data: {
+                                            id: crypto.randomUUID(),
+                                            data: aiProducts?.trim()
+                                        }
+                                    })
+                                );
+                                setAIs("");
+                            }
+                        }}
                         placeholder="Conversational AI"
-                        className="w-full p-2 border border-gray-300 rounded"
+                        className="w-full p-2 border border-gray-300 rounded mb-6 placeholder-slate-400"
                         required
                     />
-                    <Button
-                        buttonType="submit"
-                        disabled={loading}
+                    <form
+                        onSubmit={handleSubmit}
+                        className="w-full relative"
                     >
-                        {loading == true ? <Loader className="animate-spin" /> : "Compare"}
-                    </Button>
-                </form>
+
+                        <Button
+                            buttonType="submit"
+                            disabled={loading}
+                            classProps="!w-full"
+                        >
+                            {loading == true ? <Loader className="animate-spin" /> : "Compare"}
+                        </Button>
+                    </form>
+                </div>
                 <br />
                 <br />
                 <br />

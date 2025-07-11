@@ -7,10 +7,10 @@ const aiModelsSlice = createSlice({
         aiModels: [] as AIModelItemType[]
     },
     reducers: {
-        add: (state: AIModelState, action: { payload: { data: AIModelItemType } }) => {
+        addModel: (state: AIModelState, action: { payload: { data: AIModelItemType } }) => {
             state.aiModels.push(action.payload.data)
         },
-        remove: (state: AIModelState, action: { payload: { id: string } }) => {
+        removeModel: (state: AIModelState, action: { payload: { id: string } }) => {
             state.aiModels = state.aiModels.filter((value: AIModelItemType) => value.id !== action.payload.id)
         }
 
@@ -20,6 +20,6 @@ const aiModelsSlice = createSlice({
     }
 });
 
-export const { add, remove } = aiModelsSlice.actions;
+export const { addModel, removeModel } = aiModelsSlice.actions;
 export const { selectAIModels } = aiModelsSlice.selectors;
 export default aiModelsSlice.reducer;
