@@ -11,7 +11,7 @@ const HowTo = () => {
           <div className="text-slate-700 p-4 rounded flex flex-col gap-y-4">
             <span className="font-bold text-amber-600 text-lg">Step 1</span>
             <span className="font-normal text-base lg:text-lg">
-              Set the criteria to comparison criteria and fine-tune the weights
+              Set the criteria to compare the conversational AIs
             </span>
           </div>
           <div className="text-slate-700 p-4 rounded flex flex-col gap-y-4">

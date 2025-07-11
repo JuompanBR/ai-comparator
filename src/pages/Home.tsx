@@ -16,7 +16,8 @@ const Home = () => {
           <CustomDivider />
           <HowTo />
           <br className="hidden md:block"/>
-          <div className="w-full lg:w-[70%] mx-auto flex flex-col justify-center items-center bg-[#fff1e3] py-12 my-24 rounded-xl gap-y-5 text-center">
+          <hr className="block md:hidden text-gray-200 mt-22 mb-12"/>
+          <div className="w-full lg:w-[70%] mx-auto flex flex-col justify-center items-center bg-[#fff1e3] py-12 md:mt-24 mb-22 rounded-xl gap-y-5 text-center">
             <span className="text-xl lg:text-[2.21rem] my-5 font-bold text-amber-700 leading-relaxed">
               Find the best conversational AI using <br /> available free-tiers
             </span>
