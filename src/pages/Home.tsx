@@ -5,7 +5,7 @@ import { MoveRight } from "lucide-react";
 const Home = () => {
   return (
     <>
-      <div className="w-full min-h-screen flex flex-col container mx-auto overflow-x-hidden fadeIn bg-white">
+      <div className="w-full min-h-screen flex flex-col container mx-auto overflow-x-hidden fadeIn">
         <Header />
         <main className="items-center justify-center flex-1 px-4 lg:p-6 text-gray-800 relative">
           <Hero />

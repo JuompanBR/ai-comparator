@@ -9,11 +9,11 @@ const Header = () => {
 
   // Toggle dark class on <html> element
   useEffect(() => {
-    const html = document.documentElement;
+    const body = window.document.documentElement;
     if (isDarkTheme) {
-      html.classList.add("dark");
+      body?.classList.add("dark");
     } else {
-      html.classList.remove("dark");
+      body?.classList.remove("dark");
     }
   }, [isDarkTheme]);
 
