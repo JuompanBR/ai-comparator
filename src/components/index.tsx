@@ -1,4 +1,4 @@
-import CompareForm from "./CompareForm";
+import CompareSection from "./CompareSection";
 import HowTo from "./HowTo";
 import Hero from "./Hero";
 import Header from "./Header";
@@ -9,4 +9,4 @@ import Button from "./Button";
 import TagInput from "./TagInput";
 
 
-export { CompareForm, CustomDivider, Hero, Header, Footer, HowTo, Loader, Button, TagInput };
+export { CompareSection, CustomDivider, Hero, Header, Footer, HowTo, Loader, Button, TagInput };
