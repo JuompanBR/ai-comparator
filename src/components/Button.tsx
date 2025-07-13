@@ -1,14 +1,6 @@
-import { ReactNode } from "react"
+import { ButtonProps } from "../types";
 
-interface ButtonProps {
-    children: ReactNode;
-    classProps?: string;
-    clickEvent?: any;
-    buttonType: "button" | "submit";
-    disabled?: boolean;
-}
-
-const Button = ({ children, classProps, clickEvent, buttonType = "button", disabled }: ButtonProps) => {
+const Button: React.FC<ButtonProps> = ({ children, classProps, clickEvent, buttonType = "button", disabled }) => {
 
     return (
         <>

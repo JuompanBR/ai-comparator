@@ -1,12 +1,10 @@
-import { CompareAPIType, ComparismCriteriaItem } from "../../types";
-
+import { CompareAPIType, ComparismCriteriaItem, ComparismResponseItem } from "../../types";
 
 class CompareAPI implements CompareAPIType {
-    data: ComparismCriteriaItem[]
-    constructor(data: ComparismCriteriaItem[]) {
-
-        this.data = data;
+    compare(data: ComparismCriteriaItem[]): Promise<ComparismResponseItem[]> {
+        throw new Error("Method not implemented.");
     }
+    
     static async compare(data: ComparismCriteriaItem[]) {
         try {
             const response = await fetch('http://localhost:3001/compare', {

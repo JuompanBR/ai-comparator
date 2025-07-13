@@ -1,4 +1,6 @@
-const HowTo = () => {
+import React from "react";
+
+const HowTo: React.FC = () => {
   return (
     <>
       <h1

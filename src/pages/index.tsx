@@ -1,4 +1,6 @@
-import Compare from "./Compare";
-import Home from "./Home";
+import { lazy } from "react";
+
+const Compare = lazy(() => import('./Compare'));
+const Home = lazy(() => import('./Home'));
 
 export { Compare, Home };

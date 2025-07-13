@@ -1,8 +1,8 @@
 import { RulerDimensionLine, MoveRight, Sun, Moon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const Header = () => {
+const Header: React.FC = () => {
   const location = useLocation();
   const isComparePage = location.pathname === "/compare";
   const [isDarkTheme, setDarkTheme] = useState<boolean>(false);

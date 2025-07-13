@@ -1,4 +1,5 @@
-const CustomDivider = () => {
+
+const CustomDivider: React.FC = () => {
   return (
     <>
       <div

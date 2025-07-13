@@ -1,6 +1,5 @@
-import { Key, useState } from "react";
+import { useState } from "react";
 import { CompareAPI } from "../services";
-import Button from "./Button";
 import TagInput from "./TagInput";
 import {
   AIModelItemType,
@@ -12,6 +11,10 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove } from "../stores/slices/comparismCriteriaSlice";
 import { addModel, removeModel } from "../stores/slices/aiModelsSlice";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import Autocomplete from "@mui/material/Autocomplete";
+import { GENAIs, USERCRITERIA } from "../constands";
 
 const CompareSection = () => {
   const selectedCriteria = useSelector(
@@ -24,9 +27,8 @@ const CompareSection = () => {
   const [modelsInput, enableModelsAnimations] = useAutoAnimate();
   const [selectionsBox, enableSelectionsBoxAnimations] = useAutoAnimate();
 
-  const [criteria, setCriteria] = useState("");
-  const [aiProducts, setAIs] = useState("");
-  const [submittedTags, setSubmittedTags] = useState<string[]>([]);
+  const [criteria, setCriteria] = useState<string>("");
+  const [aiProduct, setAIs] = useState<string>("");
   const [comparism, setComparism] = useState<ComparismResponseItem>({});
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -39,26 +41,27 @@ const CompareSection = () => {
     return;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
     const response = confirm("Do you confirm these selections ?");
 
     if (response == true) {
-      setLoading(true);
+      let result = [{}];
 
-      const fakeData = [
+      setLoading(true);
+      const fakeData: ComparismCriteriaItem[] = [
         {
           id: "1",
           data: "This is just test data",
         },
       ];
-      let result = [{}];
+
       try {
         // fetch using the mock server
         result = await CompareAPI.compare(fakeData);
         setComparism(result[0]);
 
-        // Display the result
+        // Scroll to the results
         setTimeout(() => {
           document
             .getElementById("comparismReport")
@@ -67,14 +70,9 @@ const CompareSection = () => {
       } catch (e) {
         alert("An error occured while getting the resource.");
       }
+
       setLoading(false);
-      //scroll to the results
     }
-    // if (criteria.trim()) {
-    //     setSubmittedTags([...submittedTags, criteria.trim()]);
-    //     setCriteria("");
-    //     setAIs("");
-    // }
   };
   return (
     <>
@@ -123,7 +121,7 @@ const CompareSection = () => {
                       storeDispatcher(removeModel({ id: tag.id }))
                     }
                   >
-                    {tag.data}
+                    {tag.name}
                   </TagInput>
                 ))}
               </div>
@@ -133,70 +131,91 @@ const CompareSection = () => {
         <div
           className={`flex flex-col relative max-w-md w-full mx-auto ${selectedCriteria.length > 0 || selectedModels.length > 0 ? "mt-15" : "mt-12"}`}
         >
-          <label htmlFor="criteria" className="text-slate-400 text-xs mb-2">
-            Type criterion, add space to save
-          </label>
-          <input
-            type="text"
-            name="criteria"
-            value={criteria}
-            onChange={(e) => setCriteria(e.target.value)}
-            onKeyUp={(e) => {
-              if (e.key === " " && criteria.trim().length > 0) {
-                if (criteria.trim().length > 0) {
-                  storeDispatcher(
-                    add({
-                      data: {
-                        id: crypto.randomUUID(),
-                        data: criteria?.trim(),
-                      },
-                    }),
-                  );
-                  setCriteria("");
-                }
-              }
+          <Autocomplete
+            color="warning"
+            disablePortal
+            className="mb-5"
+            inputValue={criteria}
+            options={USERCRITERIA}
+            getOptionLabel={(option) => option.data}
+            isOptionEqualToValue={(option, value) => option.id === value.id}
+            renderInput={(params) => (
+              <TextField {...params} label="Criteria, e.g. Price" />
+            )}
+            renderOption={(props, option) => (
+              <li
+                {...props}
+                className="text-sm p-2 hover:bg-gray-200 cursor-pointer select-none"
+              >
+                <p>{option.data}</p>
+              </li>
+            )}
+            sx={{
+              width: "100%",
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": { borderColor: "#f8ba6d" },
+              },
+              "& .MuiInputLabel-root": {
+                "&.Mui-focused": { color: "#f8ba6d" },
+              },
             }}
-            placeholder="Criteria"
-            className="w-full p-2 border border-gray-300 rounded mb-6 placeholder-slate-400"
-            required
+            onChange={(event, value) => {
+              if (value && !selectedCriteria.some((c: ComparismCriteriaItem) => c.id === value.id)) {
+                storeDispatcher(add({ data: value }));
+              }
+
+              setCriteria(""); // Always reset the dropdown
+            }}
           />
-          <label htmlFor="criteria" className="text-slate-400 text-xs mb-2">
-            Type model, add space to save
-          </label>
-          <input
-            type="text"
-            name="models"
-            value={aiProducts}
-            onChange={(e) => setAIs(e.target.value)}
-            onKeyUp={(e) => {
-              if (e.key === " " && aiProducts.trim().length > 0) {
-                if (aiProducts.trim().length > 0) {
-                  storeDispatcher(
-                    addModel({
-                      data: {
-                        id: crypto.randomUUID(),
-                        data: aiProducts?.trim(),
-                      },
-                    }),
-                  );
-                  setAIs("");
-                }
-              }
+
+          <Autocomplete
+            className="mb-6"
+            options={GENAIs}
+            inputValue={aiProduct}
+            getOptionLabel={(option) => option.name} // Adjust based on your object shape
+            isOptionEqualToValue={(option, value) => option.id === value.id} // Optional but recommended
+            renderInput={(params) => (
+              <TextField {...params} label="AI, e.g. ChatGPT" />
+            )}
+            renderOption={(props, option) => (
+              <li
+                {...props}
+                className="flex flex-col p-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
+              >
+                <a href={option.url} target="_blank" className="underline">
+                  <strong>{option.name}</strong>
+                </a>
+                <p>{option.description}</p>
+              </li>
+            )}
+            sx={{
+              width: "100%",
+              "& .MuiOutlinedInput-root": {
+                "&.Mui-focused fieldset": { borderColor: "#f8ba6d" },
+              },
+              "& .MuiInputLabel-root": {
+                "&.Mui-focused": { color: "#f8ba6d" },
+              },
             }}
-            placeholder="Conversational AI"
-            className="w-full p-2 border border-gray-300 rounded mb-6 placeholder-slate-400"
-            required
+            onChange={(event, value) => {
+              if (value && !selectedModels.some((m: AIModelItemType) => m.id === value.id)) {
+                storeDispatcher(addModel({ data: value }));
+              }
+              setAIs(""); // reset dropdown
+            }}
           />
           <div className="w-full relative">
             <Button
-              buttonType="button"
+              variant="contained"
+              type="button"
+              
               disabled={
                 loading ||
                 selectedCriteria.length <= 0 ||
                 selectedModels.length <= 0
               }
-              classProps="w-full"
-              clickEvent={handleSubmit}
+              className="w-full !bg-[#e38716] hover:!bg-[#e38716]/80 disabled:!bg-gray-200"
+              onClick={() => handleSubmit}
             >
               {loading == true ? (
                 <Loader className="animate-spin" />

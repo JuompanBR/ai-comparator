@@ -1,12 +1,20 @@
-import CompareSection from "./CompareSection";
-import HowTo from "./HowTo";
-import Hero from "./Hero";
-import Header from "./Header";
-import Footer from "./Footer";
-import CustomDivider from "./CustomDivider";
-import Loader from "./Loader";
-import Button from "./Button";
-import TagInput from "./TagInput";
+import {lazy} from "react";
 
+const CompareSection = lazy(() => import("./CompareSection"));
+const HowTo = lazy(() => import("./HowTo"));
+const Hero = lazy(() => import("./Hero"));
+const Header = lazy(() => import("./Header"));
+const Footer = lazy(() => import("./Footer"));
+const CustomDivider = lazy(() => import("./CustomDivider"));
+const Loader = lazy(() => import("./Loader"));
+const Button = lazy(() => import("./Button"));
+const TagInput = lazy(() => import("./TagInput"));
 
-export { CompareSection, CustomDivider, Hero, Header, Footer, HowTo, Loader, Button, TagInput };
+export { 
+    CompareSection, 
+    CustomDivider, 
+    Hero, Header,
+    Footer, HowTo, 
+    Loader, Button, 
+    TagInput 
+};

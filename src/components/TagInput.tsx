@@ -1,14 +1,7 @@
-import { ReactNode } from "react";
+import { TagInputProps } from "../types";
 import { CircleX } from "lucide-react";
 
-interface TagInputProps {
-    id: string,
-    text?: string,
-    children?: ReactNode,
-    onClickEvent: React.MouseEventHandler<HTMLButtonElement>,
-};
-
-const TagInput = ({children, id, onClickEvent} : TagInputProps) => {
+const TagInput: React.FC<TagInputProps> = ({children, id, onClickEvent}) => {
 
     return (
         <>

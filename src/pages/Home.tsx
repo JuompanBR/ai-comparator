@@ -1,8 +1,9 @@
 import { Header, Footer, CustomDivider, Hero, HowTo } from "../components";
 import { Link } from "react-router";
 import { MoveRight } from "lucide-react";
+import React from "react";
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <>
       <div className="w-full min-h-screen flex flex-col container mx-auto overflow-x-hidden fadeIn">
