@@ -6,10 +6,10 @@ const Compare: React.FC = () => {
       <Header />
       <main className="w-full flex-1">
         <br />
-        <h1 className="text-3xl font-bold text-center text-slate-800 mt-8">
+        <h1 className="text-2xl lg:text-3xl font-bold text-center text-slate-800 mt-2">
           Comparison Form
         </h1>
-        <br />
+        <br className="hidden lg:block" />
         <div className="w-full relative block flex-1">
           <CompareSection />
         </div>

@@ -1,0 +1,12 @@
+{
+  "welcome": "Welcome to our app!",
+  "description": "This app supports multiple languages.",
+
+  "headline": "The <span className='underline text-yellow-600 font-bold'>Best tool</span> to find your best fit for all conversational <br /> SaaS AI products.",
+  "compareNowButton": "COMPARE NOW",
+  "howDoesItWork": "How does it work ?",
+  "step1": "Step 1",
+  "step1Text": "Set the criteria to compare the conversational AIs",
+  "step2": "Step 2"
+
+}

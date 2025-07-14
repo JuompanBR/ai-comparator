@@ -6,11 +6,14 @@ import ButtonProps from "./globals/ButtonProps";
 import TagInputProps from "./globals/TagInputProps";
 import LoadingSliceState from "./globals/LoadingSliceState";
 import ConfirmBoxProps from "./globals/ConfirmBoxProps";
+import FeedbackFormType from "./globals/FeedbackFromTypes";
+import LanguageSettingsState from "./globals/LanguageSettingsState";
 
 export type { 
     CompareAPIType, ComparismResponseItem, 
     ComparismCriteriaItem, ComparismCriteriaState, 
     AIModelItemType, AIModelState, 
     ButtonProps, TagInputProps,
-    LoadingSliceState, ConfirmBoxProps
+    LoadingSliceState, ConfirmBoxProps,
+    FeedbackFormType, LanguageSettingsState
 };

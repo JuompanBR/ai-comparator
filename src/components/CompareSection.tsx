@@ -8,10 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { add, remove, addModel, removeModel, setIsLoading } from "../stores/appStore";
 import { ConfirmBox } from ".";
 
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
-import Autocomplete from "@mui/material/Autocomplete";
+import {TextField, Button, Autocomplete, Link} from "@mui/material";
 import { GENAIs, USERCRITERIA } from "../constands";
+import FeedbackForm from "./FeedbackForm";
 
 const CompareSection = () => {
   const selectedCriteria: ComparismCriteriaItem[] = useSelector(
@@ -28,6 +27,7 @@ const CompareSection = () => {
   const [selectionsBox, enableSelectionsBoxAnimations] = useAutoAnimate();
 
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
+  const [feedbackOpen, setFeedbackOpen] = useState<boolean>(false);
 
   const [criteria, setCriteria] = useState<string>("");
   const [aiProduct, setAIs] = useState<string>("");
@@ -46,7 +46,7 @@ const CompareSection = () => {
 
     setOpenConfirm(false);
     storeDispatcher(setIsLoading({ data: true }));
-    
+
     const fakeData: ComparismCriteriaItem[] = [
       {
         id: "1",
@@ -80,6 +80,11 @@ const CompareSection = () => {
         message='Do you confirm these selections ?'
         title='Confirmation'
       />
+      <FeedbackForm
+      open={feedbackOpen}
+      onCancel={() => setFeedbackOpen(false)}
+      onConfirm={() => alert("Sent !")}
+       />
       <div className="w-full max-w-5xl mt-6 px-4 space-y-4 relative mx-auto">
         <div
           ref={selectionsBox}
@@ -238,6 +243,10 @@ const CompareSection = () => {
                 "Compare"
               )}
             </Button>
+            <div className="text-sm text-gray-700 font-light text-center mt-5 space-x-2">
+              <span>Want us to get better ?</span>
+              <Link color="warning" className="cursor-pointer" onClick={() => setFeedbackOpen(true)}>Give Us feedback here</Link>
+            </div>
           </div>
         </div>
         <br />

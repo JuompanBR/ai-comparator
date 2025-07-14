@@ -2,13 +2,17 @@ import { Header, Footer, CustomDivider, Hero, HowTo } from "../components";
 import { Link } from "react-router";
 import { MoveRight } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Home: React.FC = () => {
+
+  const {t} = useTranslation();
+  
   return (
     <>
       <div className="w-full min-h-screen flex flex-col container mx-auto overflow-x-hidden fadeIn">
         <Header />
-        <main className="items-center justify-center flex-1 px-3.5 lg:p-6 text-gray-800 relative">
+        <main className="items-center justify-center flex-1 px-4 lg:p-6 text-gray-800 relative">
           <Hero />
           <br />
           <div id="how-to" className="lg:h-2 w-full relative block">

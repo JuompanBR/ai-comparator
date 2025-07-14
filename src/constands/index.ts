@@ -1,5 +1,7 @@
 import { AIModelItemType, ComparismCriteriaItem } from "../types";
 
+
+const DEFAULT_LANGUAGE = 'en';
 const USERCRITERIA: ComparismCriteriaItem[] = [
   { id: "1", data: "Ease of Use" },
   { id: "2", data: "Response Quality" },
@@ -74,4 +76,4 @@ const GENAIs: AIModelItemType[] = [
   }
 ];
 
-export { GENAIs, USERCRITERIA };
+export { GENAIs, USERCRITERIA, DEFAULT_LANGUAGE };

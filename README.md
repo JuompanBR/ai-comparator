@@ -25,3 +25,10 @@ Build the application in production mode by running:
 npm run build
 ```
 
+## To-do
+ - Request features form
+ - Buy domains
+ - Language support
+ - Price conversion support
+ - Themes support
+
