@@ -1,4 +1,4 @@
-import {lazy} from "react";
+import { lazy } from "react";
 
 const CompareSection = lazy(() => import("./CompareSection"));
 const HowTo = lazy(() => import("./HowTo"));
@@ -11,7 +11,7 @@ const Button = lazy(() => import("./Button"));
 const TagInput = lazy(() => import("./TagInput"));
 const ConfirmBox = lazy(() => import("./ConfirmBox"));
 
-export { 
+export {
     CompareSection, 
     CustomDivider, 
     Hero, Header,

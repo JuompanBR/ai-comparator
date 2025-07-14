@@ -29,11 +29,11 @@ const Hero: React.FC = () => {
         </p>
         <br />
         <div className="w-full justify-center items-center flex">
-          <Button onClick={() => navigate(ROUTES.compare)} variant="contained" className="!bg-[#e38716] hover:!bg-[#e38716]/80 lg:!text-lg !me-9 lg:!me-11">
+          <Button onClick={() => navigate(ROUTES.compare)} variant="contained" className="!bg-[#e38716] hover:!bg-[#e38716]/80 !text-sm lg:!text-lg !me-9 lg:!me-11">
             Compare now
           </Button>
           
-          <a href="#how-to" className="rounded-sm py-1.5 px-3 lg:px-6 text-amber-700 text-base lg:text-lg font-bold bg-[#e38716]/20 hover:bg-[#e38716]/25 transition-all shadow-xs">
+          <a href="#how-to" className="rounded-sm py-1.5 px-3 lg:px-6 text-amber-700 text-sm lg:text-lg font-bold bg-[#e38716]/20 hover:bg-[#e38716]/25 transition-all shadow-xs">
             How does it work ?
           </a>
         </div>
