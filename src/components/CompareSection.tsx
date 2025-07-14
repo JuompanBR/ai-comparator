@@ -186,10 +186,10 @@ const CompareSection = () => {
                 <li
                   key={key}
                   {...rest}
-                  className="flex flex-col p-2 py-3 my-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
+                  className="flex flex-col px-4 py-3 my-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
                 >
                   <span className="w-fit relative inline-flex items-center space-x-2">
-                    <a href={option.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-700">{option.name}</a>
+                    <a href={option.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-700 hover:underline decoration-1">{option.name}</a>
                     <ExternalLink size={15} className="text-amber-700" strokeWidth={1.5} />
                   </span>
                   <p>{option.description}</p>
