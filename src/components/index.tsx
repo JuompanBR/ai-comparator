@@ -9,6 +9,7 @@ const CustomDivider = lazy(() => import("./CustomDivider"));
 const Loader = lazy(() => import("./Loader"));
 const Button = lazy(() => import("./Button"));
 const TagInput = lazy(() => import("./TagInput"));
+const ConfirmBox = lazy(() => import("./ConfirmBox"));
 
 export { 
     CompareSection, 
@@ -16,5 +17,5 @@ export {
     Hero, Header,
     Footer, HowTo, 
     Loader, Button, 
-    TagInput 
+    TagInput, ConfirmBox
 };

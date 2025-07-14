@@ -5,11 +5,12 @@ import { AIModelItemType, AIModelState } from "./globals/AIModelItemType";
 import ButtonProps from "./globals/ButtonProps";
 import TagInputProps from "./globals/TagInputProps";
 import LoadingSliceState from "./globals/LoadingSliceState";
+import ConfirmBoxProps from "./globals/ConfirmBoxProps";
 
 export type { 
     CompareAPIType, ComparismResponseItem, 
     ComparismCriteriaItem, ComparismCriteriaState, 
     AIModelItemType, AIModelState, 
     ButtonProps, TagInputProps,
-    LoadingSliceState
+    LoadingSliceState, ConfirmBoxProps
 };

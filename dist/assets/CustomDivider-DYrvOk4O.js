@@ -1,0 +1,1 @@
+import{j as r}from"./index-sUgyeMjr.js";const o=()=>r.jsx(r.Fragment,{children:r.jsx("div",{id:"shapeRegion",className:"w-full lg:w-[80%] h-[100px] mx-auto block rounded-t-[900%] border-t border-amber-400"})});export{o as default};

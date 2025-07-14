@@ -6,6 +6,7 @@ import { Loader, Ban, ExternalLink } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove, addModel, removeModel, setIsLoading } from "../stores/appStore";
+import { ConfirmBox } from ".";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -26,6 +27,8 @@ const CompareSection = () => {
   const [modelsInput, enableModelsAnimations] = useAutoAnimate();
   const [selectionsBox, enableSelectionsBoxAnimations] = useAutoAnimate();
 
+  const [openConfirm, setOpenConfirm] = useState<boolean>(false);
+
   const [criteria, setCriteria] = useState<string>("");
   const [aiProduct, setAIs] = useState<string>("");
   const [comparism, setComparism] = useState<ComparismResponseItem>({});
@@ -39,39 +42,44 @@ const CompareSection = () => {
     return;
   };
 
-  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
-    e.preventDefault();
-    const response = confirm("Do you confirm these selections ?");
+  const handleSubmit = async (): Promise<void> => {
 
-    if (response == true) {
-      storeDispatcher(setIsLoading({ data: true }));
-      const fakeData: ComparismCriteriaItem[] = [
-        {
-          id: "1",
-          data: "This is just test data",
-        },
-      ];
+    setOpenConfirm(false);
+    storeDispatcher(setIsLoading({ data: true }));
+    
+    const fakeData: ComparismCriteriaItem[] = [
+      {
+        id: "1",
+        data: "This is just test data",
+      },
+    ];
 
-      try {
-        // fetch using the mock server
-        const result = await CompareAPI.compare(fakeData);
-        setComparism(result[0]);
+    try {
+      // fetch using the mock server
+      const result = await CompareAPI.compare(fakeData);
+      setComparism(result[0]);
 
-        // Scroll to the results
-        setTimeout(() => {
-          document
-            .getElementById("comparismReport")
-            ?.scrollIntoView({ behavior: "smooth" });
-        }, 300);
-      } catch (e) {
-        alert("An error occured while getting the resource.");
-      }
-
-      storeDispatcher(setIsLoading({ data: false }));
+      // Scroll to the results
+      setTimeout(() => {
+        document
+          .getElementById("comparismReport")
+          ?.scrollIntoView({ behavior: "smooth" });
+      }, 300);
+    } catch (e) {
+      alert("An error occured while getting the resource.");
     }
+
+    storeDispatcher(setIsLoading({ data: false }));
   };
   return (
     <>
+      <ConfirmBox
+        open={openConfirm}
+        onConfirm={handleSubmit}
+        onCancel={() => setOpenConfirm(false)}
+        message='Do you confirm these selections ?'
+        title='Confirmation'
+      />
       <div className="w-full max-w-5xl mt-6 px-4 space-y-4 relative mx-auto">
         <div
           ref={selectionsBox}
@@ -129,7 +137,6 @@ const CompareSection = () => {
         >
           <Autocomplete
             color="warning"
-            disablePortal
             className="mb-5"
             inputValue={criteria}
             onInputChange={(e, newValue) => setCriteria(newValue)}
@@ -170,6 +177,7 @@ const CompareSection = () => {
           />
 
           <Autocomplete
+            disablePortal
             className="mb-6"
             options={GENAIs}
             inputValue={aiProduct}
@@ -222,7 +230,7 @@ const CompareSection = () => {
                 selectedModels.length <= 0
               }
               className="w-full !bg-[#e38716] hover:!bg-[#e38716]/80 disabled:!bg-gray-200"
-              onClick={handleSubmit}
+              onClick={() => setOpenConfirm(true)}
             >
               {isLoading == true ? (
                 <Loader className="animate-spin" />
