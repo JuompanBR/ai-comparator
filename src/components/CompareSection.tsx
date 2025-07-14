@@ -146,7 +146,7 @@ const CompareSection = () => {
                 <li
                   key={key}
                   {...rest}
-                  className="text-sm p-2 hover:bg-gray-200 cursor-pointer select-none"
+                  className="text-sm px-2 py-2 my-1 hover:bg-gray-200 cursor-pointer select-none"
                 >
                   <p>{option.data}</p>
                 </li>
@@ -186,7 +186,7 @@ const CompareSection = () => {
                 <li
                   key={key}
                   {...rest}
-                  className="flex flex-col px-4 py-3 my-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
+                  className="flex flex-col px-3 py-3 my-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
                 >
                   <span className="w-fit relative inline-flex items-center space-x-2">
                     <a href={option.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-700 hover:underline decoration-1">{option.name}</a>
