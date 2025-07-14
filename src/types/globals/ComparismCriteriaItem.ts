@@ -1,6 +1,8 @@
+import LocalizedDataType from "./LocalizedDataType";
+
 interface ComparismCriteriaItem {
     id: string;
-    data: string
+    data: LocalizedDataType;
 };
 
 interface ComparismCriteriaState {

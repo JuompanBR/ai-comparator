@@ -1,25 +1,35 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { CompareAPI } from "../services";
 import TagInput from "./TagInput";
-import { AIModelItemType, ComparismCriteriaItem, ComparismResponseItem } from "../types";
+import {
+  AIModelItemType,
+  ComparismCriteriaItem,
+  ComparismResponseItem,
+} from "../types";
 import { Loader, Ban, ExternalLink } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useDispatch, useSelector } from "react-redux";
-import { add, remove, addModel, removeModel, setIsLoading } from "../stores/appStore";
+import {
+  add,
+  remove,
+  addModel,
+  removeModel,
+  setIsLoading,
+} from "../stores/appStore";
 import { ConfirmBox } from ".";
 
-import {TextField, Button, Autocomplete, Link} from "@mui/material";
+import { TextField, Button, Autocomplete, Link } from "@mui/material";
 import { GENAIs, USERCRITERIA } from "../constands";
 import FeedbackForm from "./FeedbackForm";
 import { useTranslation, Trans } from "react-i18next";
 
 const CompareSection = () => {
   const selectedCriteria: ComparismCriteriaItem[] = useSelector(
-    (state: any) => state.comparismCriteria.comparismCriteria
+    (state: any) => state.comparismCriteria.comparismCriteria,
   );
   const isLoading: boolean = useSelector(
-    (state: any) => state.isLoading.isLoading
-  )
+    (state: any) => state.isLoading.isLoading,
+  );
   const selectedModels = useSelector((state: any) => state.aiModels.aiModels);
   const storeDispatcher = useDispatch();
 
@@ -33,8 +43,11 @@ const CompareSection = () => {
   const [criteria, setCriteria] = useState<string>("");
   const [aiProduct, setAIs] = useState<string>("");
   const [comparism, setComparism] = useState<ComparismResponseItem>({});
+  const criteriaInputFieldRef = useRef<HTMLInputElement>(null);
+  const modelsInputFieldRef = useRef<HTMLInputElement>(null);
 
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLang = (i18n.language as "en" | "fr") ?? "en";
 
   const handleClear = async () => {
     const response = confirm("Are you sure you want to clear ?");
@@ -46,11 +59,10 @@ const CompareSection = () => {
   };
 
   const handleSubmit = async (): Promise<void> => {
-
     setOpenConfirm(false);
     storeDispatcher(setIsLoading({ data: true }));
 
-    const fakeData: ComparismCriteriaItem[] = [
+    const fakeData = [
       {
         id: "1",
         data: "This is just test data",
@@ -81,13 +93,13 @@ const CompareSection = () => {
         onConfirm={handleSubmit}
         onCancel={() => setOpenConfirm(false)}
         message={t("confirmBoxContentText")}
-        title='Confirmation'
+        title="Confirmation"
       />
       <FeedbackForm
-      open={feedbackOpen}
-      onCancel={() => setFeedbackOpen(false)}
-      onConfirm={() => alert("Sent !")}
-       />
+        open={feedbackOpen}
+        onCancel={() => setFeedbackOpen(false)}
+        onConfirm={() => alert("Sent !")}
+      />
       <div className="w-full max-w-5xl mt-6 px-4 space-y-4 relative mx-auto">
         <div
           ref={selectionsBox}
@@ -104,15 +116,27 @@ const CompareSection = () => {
                 ref={tagInputs}
                 className="relative flex flex-wrap gap-4 justify-center items-center transition-all"
               >
-                {selectedCriteria.map((tag: ComparismCriteriaItem) => (
-                  <TagInput
-                    id={tag.id}
-                    key={tag.id}
-                    onClickEvent={() => storeDispatcher(remove({ id: tag.id }))}
-                  >
-                    {tag.data}
-                  </TagInput>
-                ))}
+                {selectedCriteria.map((tag: ComparismCriteriaItem) => {
+                  let label: string;
+
+                  if (typeof tag.data === "string") {
+                    label = tag.data;
+                  } else {
+                    label = tag.data[currentLang] ?? tag.data.en;
+                  }
+
+                  return (
+                    <TagInput
+                      id={tag.id}
+                      key={tag.id}
+                      onClickEvent={() =>
+                        storeDispatcher(remove({ id: tag.id }))
+                      }
+                    >
+                      {label}
+                    </TagInput>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -147,12 +171,19 @@ const CompareSection = () => {
             color="warning"
             className="mb-5"
             inputValue={criteria}
-            onInputChange={(e, newValue) => setCriteria(newValue)}
+            onInputChange={(e, newValue) => {
+              if (e?.type !== "change") return;
+              setCriteria(newValue);
+            }}
             options={USERCRITERIA}
-            getOptionLabel={(option) => option.data}
+            getOptionLabel={(option) => option.data[currentLang]}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             renderInput={(params) => (
-              <TextField {...params} label={t("autoCompleteCriteriaLabel")} />
+              <TextField
+                {...params}
+                inputRef={criteriaInputFieldRef}
+                label={t("autoCompleteCriteriaLabel")}
+              />
             )}
             renderOption={(props, option) => {
               const { key, ...rest } = props;
@@ -163,7 +194,7 @@ const CompareSection = () => {
                   {...rest}
                   className="text-sm px-2 py-2 my-1 hover:bg-gray-200 cursor-pointer select-none"
                 >
-                  <p>{option.data}</p>
+                  <p>{option.data[currentLang]}</p>
                 </li>
               );
             }}
@@ -177,23 +208,35 @@ const CompareSection = () => {
               },
             }}
             onChange={(event, value) => {
-              if (value && !selectedCriteria.some((c: ComparismCriteriaItem) => c.id === value.id)) {
-                setCriteria("");
+              if (
+                value &&
+                !selectedCriteria.some(
+                  (c: ComparismCriteriaItem) => c.id === value.id,
+                )
+              ) {
                 storeDispatcher(add({ data: value }));
+                setCriteria("");
+                criteriaInputFieldRef.current?.blur();
               }
             }}
           />
-
           <Autocomplete
             disablePortal
             className="mb-6"
             options={GENAIs}
             inputValue={aiProduct}
-            onInputChange={(e, newValue) => setAIs(newValue)}
+            onInputChange={(e, newValue) => {
+              if (e?.type !== "change") return;
+              setAIs(newValue);
+            }}
             getOptionLabel={(option) => option.name} // Adjust based on your object shape
             isOptionEqualToValue={(option, value) => option.id === value.id} // Optional but recommended
             renderInput={(params) => (
-              <TextField {...params} label={t("autoCompleteModelsLabel")} />
+              <TextField
+                {...params}
+                inputRef={modelsInputFieldRef}
+                label={t("autoCompleteModelsLabel")}
+              />
             )}
             renderOption={(props, option) => {
               const { key, ...rest } = props;
@@ -205,10 +248,21 @@ const CompareSection = () => {
                   className="flex flex-col px-3 py-3 my-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
                 >
                   <span className="w-fit relative inline-flex items-center space-x-2">
-                    <a href={option.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-700 hover:underline decoration-1">{option.name}</a>
-                    <ExternalLink size={15} className="text-amber-700" strokeWidth={1.5} />
+                    <a
+                      href={option.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-amber-700 hover:underline decoration-1"
+                    >
+                      {option.name}
+                    </a>
+                    <ExternalLink
+                      size={15}
+                      className="text-amber-700"
+                      strokeWidth={1.5}
+                    />
                   </span>
-                  <p>{option.description}</p>
+                  <p>{option.description[currentLang]}</p>
                 </li>
               );
             }}
@@ -222,9 +276,13 @@ const CompareSection = () => {
               },
             }}
             onChange={(event, value) => {
-              if (value && !selectedModels.some((m: AIModelItemType) => m.id === value.id)) {
+              if (
+                value &&
+                !selectedModels.some((m: AIModelItemType) => m.id === value.id)
+              ) {
                 setAIs("");
                 storeDispatcher(addModel({ data: value }));
+                modelsInputFieldRef.current?.blur();
               }
             }}
           />
@@ -247,10 +305,16 @@ const CompareSection = () => {
               )}
             </Button>
             <div className="text-sm text-gray-700 font-medium text-center mt-5 space-x-2">
-              <Trans 
+              <Trans
                 i18nKey="comparisonFormFeedbackText"
                 components={{
-                  "Link": <Link color="warning" className="cursor-pointer" onClick={() => setFeedbackOpen(true)}/>
+                  Link: (
+                    <Link
+                      color="warning"
+                      className="cursor-pointer"
+                      onClick={() => setFeedbackOpen(true)}
+                    />
+                  ),
                 }}
               />
             </div>

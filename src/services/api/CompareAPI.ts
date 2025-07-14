@@ -5,7 +5,7 @@ class CompareAPI implements CompareAPIType {
         throw new Error("Method not implemented.");
     }
     
-    static async compare(data: ComparismCriteriaItem[]) {
+    static async compare(data: object[]) {
         try {
             const response = await fetch('http://localhost:3001/compare', {
                 method: 'GET',

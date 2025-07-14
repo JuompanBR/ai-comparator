@@ -1,7 +1,9 @@
+import LocalizedDataType from "./LocalizedDataType";
+
 interface AIModelItemType {
     id: string;
     name: string,
-    description: string,
+    description: LocalizedDataType,
     url: string
 };
 
