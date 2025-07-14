@@ -27,7 +27,7 @@ const GENAIs: AIModelItemType[] = [
   {
     id: "1",
     name: "ChatGPT",
-    description: "A general-purpose conversational AI by OpenAI with GPT-4o, supporting text, code, image, voice, and plugins.",
+    description: "A general-purpose conversational AI by OpenAI, supporting text, code, image, voice, and plugins.",
     url: "https://chat.openai.com"
   },
   {

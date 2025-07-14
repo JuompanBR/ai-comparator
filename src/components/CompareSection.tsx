@@ -1,25 +1,24 @@
 import { useState } from "react";
 import { CompareAPI } from "../services";
 import TagInput from "./TagInput";
-import {
-  AIModelItemType,
-  ComparismCriteriaItem,
-  ComparismResponseItem,
-} from "../types";
-import { Loader, Ban } from "lucide-react";
+import { AIModelItemType, ComparismCriteriaItem, ComparismResponseItem } from "../types";
+import { Loader, Ban, ExternalLink } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useDispatch, useSelector } from "react-redux";
-import { add, remove } from "../stores/slices/comparismCriteriaSlice";
-import { addModel, removeModel } from "../stores/slices/aiModelsSlice";
+import { add, remove, addModel, removeModel, setIsLoading } from "../stores/appStore";
+
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Autocomplete from "@mui/material/Autocomplete";
 import { GENAIs, USERCRITERIA } from "../constands";
 
 const CompareSection = () => {
-  const selectedCriteria = useSelector(
-    (state: any) => state.comparismCriteria.comparismCriteria,
+  const selectedCriteria: ComparismCriteriaItem[] = useSelector(
+    (state: any) => state.comparismCriteria.comparismCriteria
   );
+  const isLoading: boolean = useSelector(
+    (state: any) => state.isLoading.isLoading
+  )
   const selectedModels = useSelector((state: any) => state.aiModels.aiModels);
   const storeDispatcher = useDispatch();
 
@@ -30,7 +29,6 @@ const CompareSection = () => {
   const [criteria, setCriteria] = useState<string>("");
   const [aiProduct, setAIs] = useState<string>("");
   const [comparism, setComparism] = useState<ComparismResponseItem>({});
-  const [loading, setLoading] = useState<boolean>(false);
 
   const handleClear = async () => {
     const response = confirm("Are you sure you want to clear ?");
@@ -46,9 +44,7 @@ const CompareSection = () => {
     const response = confirm("Do you confirm these selections ?");
 
     if (response == true) {
-      let result = [{}];
-
-      setLoading(true);
+      storeDispatcher(setIsLoading({ data: true }));
       const fakeData: ComparismCriteriaItem[] = [
         {
           id: "1",
@@ -58,7 +54,7 @@ const CompareSection = () => {
 
       try {
         // fetch using the mock server
-        result = await CompareAPI.compare(fakeData);
+        const result = await CompareAPI.compare(fakeData);
         setComparism(result[0]);
 
         // Scroll to the results
@@ -71,7 +67,7 @@ const CompareSection = () => {
         alert("An error occured while getting the resource.");
       }
 
-      setLoading(false);
+      storeDispatcher(setIsLoading({ data: false }));
     }
   };
   return (
@@ -136,20 +132,26 @@ const CompareSection = () => {
             disablePortal
             className="mb-5"
             inputValue={criteria}
+            onInputChange={(e, newValue) => setCriteria(newValue)}
             options={USERCRITERIA}
             getOptionLabel={(option) => option.data}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             renderInput={(params) => (
               <TextField {...params} label="Criteria, e.g. Price" />
             )}
-            renderOption={(props, option) => (
-              <li
-                {...props}
-                className="text-sm p-2 hover:bg-gray-200 cursor-pointer select-none"
-              >
-                <p>{option.data}</p>
-              </li>
-            )}
+            renderOption={(props, option) => {
+              const { key, ...rest } = props;
+
+              return (
+                <li
+                  key={key}
+                  {...rest}
+                  className="text-sm p-2 hover:bg-gray-200 cursor-pointer select-none"
+                >
+                  <p>{option.data}</p>
+                </li>
+              );
+            }}
             sx={{
               width: "100%",
               "& .MuiOutlinedInput-root": {
@@ -161,10 +163,9 @@ const CompareSection = () => {
             }}
             onChange={(event, value) => {
               if (value && !selectedCriteria.some((c: ComparismCriteriaItem) => c.id === value.id)) {
+                setCriteria("");
                 storeDispatcher(add({ data: value }));
               }
-
-              setCriteria(""); // Always reset the dropdown
             }}
           />
 
@@ -172,22 +173,29 @@ const CompareSection = () => {
             className="mb-6"
             options={GENAIs}
             inputValue={aiProduct}
+            onInputChange={(e, newValue) => setAIs(newValue)}
             getOptionLabel={(option) => option.name} // Adjust based on your object shape
             isOptionEqualToValue={(option, value) => option.id === value.id} // Optional but recommended
             renderInput={(params) => (
               <TextField {...params} label="AI, e.g. ChatGPT" />
             )}
-            renderOption={(props, option) => (
-              <li
-                {...props}
-                className="flex flex-col p-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
-              >
-                <a href={option.url} target="_blank" className="underline">
-                  <strong>{option.name}</strong>
-                </a>
-                <p>{option.description}</p>
-              </li>
-            )}
+            renderOption={(props, option) => {
+              const { key, ...rest } = props;
+
+              return (
+                <li
+                  key={key}
+                  {...rest}
+                  className="flex flex-col p-2 py-3 my-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
+                >
+                  <span className="w-fit relative inline-flex items-center space-x-2">
+                    <a href={option.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-700">{option.name}</a>
+                    <ExternalLink size={15} className="text-amber-700" strokeWidth={1.5} />
+                  </span>
+                  <p>{option.description}</p>
+                </li>
+              );
+            }}
             sx={{
               width: "100%",
               "& .MuiOutlinedInput-root": {
@@ -199,25 +207,24 @@ const CompareSection = () => {
             }}
             onChange={(event, value) => {
               if (value && !selectedModels.some((m: AIModelItemType) => m.id === value.id)) {
+                setAIs("");
                 storeDispatcher(addModel({ data: value }));
               }
-              setAIs(""); // reset dropdown
             }}
           />
           <div className="w-full relative">
             <Button
               variant="contained"
               type="button"
-              
               disabled={
-                loading ||
+                isLoading ||
                 selectedCriteria.length <= 0 ||
                 selectedModels.length <= 0
               }
               className="w-full !bg-[#e38716] hover:!bg-[#e38716]/80 disabled:!bg-gray-200"
-              onClick={() => handleSubmit}
+              onClick={handleSubmit}
             >
-              {loading == true ? (
+              {isLoading == true ? (
                 <Loader className="animate-spin" />
               ) : (
                 "Compare"
