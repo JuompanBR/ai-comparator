@@ -1,4 +1,5 @@
-# practice-app
+# AI-Comparator
+The Best tool to find your best fit for all conversational SaaS AI products.
 
 ## Installation
 
