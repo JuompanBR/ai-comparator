@@ -11,6 +11,7 @@ import { ConfirmBox } from ".";
 import {TextField, Button, Autocomplete, Link} from "@mui/material";
 import { GENAIs, USERCRITERIA } from "../constands";
 import FeedbackForm from "./FeedbackForm";
+import { useTranslation, Trans } from "react-i18next";
 
 const CompareSection = () => {
   const selectedCriteria: ComparismCriteriaItem[] = useSelector(
@@ -32,6 +33,8 @@ const CompareSection = () => {
   const [criteria, setCriteria] = useState<string>("");
   const [aiProduct, setAIs] = useState<string>("");
   const [comparism, setComparism] = useState<ComparismResponseItem>({});
+
+  const { t } = useTranslation();
 
   const handleClear = async () => {
     const response = confirm("Are you sure you want to clear ?");
@@ -77,7 +80,7 @@ const CompareSection = () => {
         open={openConfirm}
         onConfirm={handleSubmit}
         onCancel={() => setOpenConfirm(false)}
-        message='Do you confirm these selections ?'
+        message={t("confirmBoxContentText")}
         title='Confirmation'
       />
       <FeedbackForm
@@ -95,7 +98,7 @@ const CompareSection = () => {
               className={`w-full lg:w-1/2 relative block text-center ${selectedModels.length > 0 ? "lg:border-r" : ""} lg:pe-9 border-slate-200`}
             >
               <h2 className="font-normal text-lg text-slate-700 my-9">
-                Set your Criteria
+                {t("setCriteria")}
               </h2>
               <div
                 ref={tagInputs}
@@ -116,7 +119,7 @@ const CompareSection = () => {
           {selectedModels.length > 0 && (
             <div className="w-full lg:w-1/2 relative block text-center lg:ps-9">
               <h2 className="font-normal text-lg text-slate-700 my-9">
-                Set your Models
+                {t("setModels")}
               </h2>
               <div
                 ref={modelsInput}
@@ -149,7 +152,7 @@ const CompareSection = () => {
             getOptionLabel={(option) => option.data}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             renderInput={(params) => (
-              <TextField {...params} label="Criteria, e.g. Price" />
+              <TextField {...params} label={t("autoCompleteCriteriaLabel")} />
             )}
             renderOption={(props, option) => {
               const { key, ...rest } = props;
@@ -190,7 +193,7 @@ const CompareSection = () => {
             getOptionLabel={(option) => option.name} // Adjust based on your object shape
             isOptionEqualToValue={(option, value) => option.id === value.id} // Optional but recommended
             renderInput={(params) => (
-              <TextField {...params} label="AI, e.g. ChatGPT" />
+              <TextField {...params} label={t("autoCompleteModelsLabel")} />
             )}
             renderOption={(props, option) => {
               const { key, ...rest } = props;
@@ -240,12 +243,16 @@ const CompareSection = () => {
               {isLoading == true ? (
                 <Loader className="animate-spin" />
               ) : (
-                "Compare"
+                t("comparisonFormButton")
               )}
             </Button>
-            <div className="text-sm text-gray-700 font-light text-center mt-5 space-x-2">
-              <span>Want us to get better ?</span>
-              <Link color="warning" className="cursor-pointer" onClick={() => setFeedbackOpen(true)}>Give Us feedback here</Link>
+            <div className="text-sm text-gray-700 font-medium text-center mt-5 space-x-2">
+              <Trans 
+                i18nKey="comparisonFormFeedbackText"
+                components={{
+                  "Link": <Link color="warning" className="cursor-pointer" onClick={() => setFeedbackOpen(true)}/>
+                }}
+              />
             </div>
           </div>
         </div>

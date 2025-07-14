@@ -1,7 +1,13 @@
 import { RulerDimensionLine, MoveRight, Sun, Moon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import {
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
 import { DEFAULT_LANGUAGE } from "../constands";
 import { setLanguage, selectLanguage } from "../stores/appStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +19,7 @@ const Header: React.FC = () => {
   const [isDarkTheme, setDarkTheme] = useState<boolean>(false);
   const storeDispatcher = useDispatch();
   const appLanguage = useSelector((state: any) => state.language.language);
-  const {i18n} = useTranslation();
+  const { i18n, t } = useTranslation();
 
   // Toggle dark class on <html> element
   useEffect(() => {
@@ -32,7 +38,7 @@ const Header: React.FC = () => {
     });
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
-    storeDispatcher(setLanguage({data: event.target.value as string}));
+    storeDispatcher(setLanguage({ data: event.target.value as string }));
     i18n.changeLanguage(event.target.value as string);
   };
 
@@ -48,7 +54,7 @@ const Header: React.FC = () => {
       <span className="flex space-x-5 items-center">
         {!isComparePage && (
           <p className="text-sm space-x-3 text-slate-800 items-center underline hover:opacity-80 transition-all hidden lg:flex">
-            <span>Change looks here</span>
+            <span>{t('customizeLooks')}</span>
             <MoveRight className="arrow block relative" strokeWidth={1.5} />
           </p>
         )}
@@ -69,14 +75,13 @@ const Header: React.FC = () => {
         <FormControl>
           <Select
             color="warning"
-            labelId="demo-simple-select-label"
-            id="demo-simple-select ."
-            value={appLanguage}
-            defaultValue={DEFAULT_LANGUAGE}
+            labelId="language-select-label"
+            id="language-select"
+            value={i18n.language}
             onChange={handleLanguageChange}
           >
-            <MenuItem value={"en"}>En</MenuItem>
-            <MenuItem value={"fr"}>Fr</MenuItem>
+            <MenuItem value="en">En</MenuItem>
+            <MenuItem value="fr">Fr</MenuItem>
           </Select>
         </FormControl>
       </span>
