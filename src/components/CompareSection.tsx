@@ -192,7 +192,7 @@ const CompareSection = () => {
                 <li
                   key={key}
                   {...rest}
-                  className="text-sm px-2 py-2 my-1 hover:underline cursor-pointer select-none"
+                  className="text-sm px-2 py-2 my-2.5 hover:underline cursor-pointer select-none"
                 >
                   <p>{option.data[currentLang]}</p>
                 </li>
