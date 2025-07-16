@@ -295,7 +295,7 @@ const CompareSection = () => {
                 selectedCriteria.length <= 0 ||
                 selectedModels.length <= 0
               }
-              className="w-full !bg-[#e38716] hover:!bg-[#e38716]/80 disabled:!bg-gray-200"
+              className="w-full !bg-[#e38716] hover:!bg-[#e38716]/80 disabled:!bg-gray-200/20"
               onClick={() => setOpenConfirm(true)}
             >
               {isLoading == true ? (

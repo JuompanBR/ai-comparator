@@ -21,7 +21,7 @@ const FeedbackForm: React.FC<FeedbackFormType> = ({ open = true, onConfirm, onCa
     return (
         <Dialog open={open} onClose={onCancel} maxWidth="xs" fullWidth>
             <form onSubmit={(e) => { e.preventDefault(); onConfirm?.(); }}>
-                <DialogTitle className="text-slate-800 text-center">{t("feedbackFormTitle")}</DialogTitle>
+                <DialogTitle className="text-center">{t("feedbackFormTitle")}</DialogTitle>
                 <DialogContent>
                     <FormControl
                         color="warning"

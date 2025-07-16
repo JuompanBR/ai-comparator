@@ -15,7 +15,7 @@ const lightTheme = createTheme({
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    background: {default: "hsl(210, 14%, 7%)"},
+    background: {default: "hsl(210, 14%, 7%)"}, 
     primary: { main: '#90caf9' },
     text: {primary: "#ccc"},
     secondary: { main: '#ce93d8' },
