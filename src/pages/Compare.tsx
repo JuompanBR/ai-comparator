@@ -9,7 +9,7 @@ const Compare: React.FC = () => {
       <Header />
       <main className="w-full flex-1">
         <br />
-        <h1 className="text-2xl lg:text-3xl font-bold text-center text-slate-800 mt-8">
+        <h1 className="text-2xl lg:text-3xl font-bold text-center mt-8">
           {t("comparisonFormTitle")}
         </h1>
         <br className="hidden lg:block" />

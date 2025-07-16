@@ -23,12 +23,12 @@ const Hero: React.FC = () => {
           />{" "}
           <span>{t("appName")}</span>
         </span>
-        <p className="text-slate-600 text-lg lg:text-2xl font-normal leading-normal">
+        <p className="text-lg lg:text-2xl font-normal leading-normal">
           <Trans
             i18nKey="headline"
             components={{
               "span": <span className='underline text-yellow-600 font-bold' />,
-              "br": <br/>
+              "br": <br />
             }}
           />
         </p>

@@ -8,34 +8,33 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { DEFAULT_LANGUAGE } from "../constands";
 import { setLanguage, selectLanguage } from "../stores/appStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
+import { themeContext } from "../themes/ThemeContextProvider";
 
 const Header: React.FC = () => {
   const location = useLocation();
   const isComparePage = location.pathname === "/compare";
-  const [isDarkTheme, setDarkTheme] = useState<boolean>(false);
   const storeDispatcher = useDispatch();
-  const appLanguage = useSelector((state: any) => state.language.language);
   const { i18n, t } = useTranslation();
+  const { toggleTheme, getCurrentTheme } = themeContext();
 
   // Toggle dark class on <html> element
   useEffect(() => {
     const body = window.document.documentElement;
-    if (isDarkTheme) {
+    if (getCurrentTheme() === 'dark') {
       body?.classList.add("dark");
     } else {
       body?.classList.remove("dark");
     }
-  }, [isDarkTheme]);
+  }, [getCurrentTheme]);
 
   // function to toggle the theme
-  const toggleTheme = () =>
-    setDarkTheme((prev) => {
-      return !prev;
-    });
+  // const toggleTheme = () =>
+  //   setDarkTheme((prev) => {
+  //     return !prev;
+  //   });
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
     storeDispatcher(setLanguage({ data: event.target.value as string }));
@@ -53,7 +52,7 @@ const Header: React.FC = () => {
 
       <span className="flex space-x-5 items-center">
         {!isComparePage && (
-          <p className="text-sm space-x-3 text-slate-800 items-center underline hover:opacity-80 transition-all hidden lg:flex">
+          <p className="text-sm space-x-3 items-center underline hover:opacity-80 transition-all hidden lg:flex">
             <span>{t('customizeLooks')}</span>
             <MoveRight className="arrow block relative" strokeWidth={1.5} />
           </p>
@@ -61,14 +60,14 @@ const Header: React.FC = () => {
 
         <button
           type="button"
-          onClick={toggleTheme}
+          onClick={() => toggleTheme()}
           aria-label="Toggle Theme"
           className="rounded-full p-2 flex justify-center items-center cursor-pointer transition-all"
         >
-          {isDarkTheme ? (
+          {getCurrentTheme() === 'light' ? (
             <Moon className="text-slate-800" strokeWidth={1.4} />
           ) : (
-            <Sun className="text-amber-700" strokeWidth={1.4} />
+            <Sun className="text-white" strokeWidth={1.4} />
           )}
         </button>
 

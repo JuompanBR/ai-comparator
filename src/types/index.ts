@@ -8,6 +8,7 @@ import LoadingSliceState from "./globals/LoadingSliceState";
 import ConfirmBoxProps from "./globals/ConfirmBoxProps";
 import FeedbackFormType from "./globals/FeedbackFromTypes";
 import LanguageSettingsState from "./globals/LanguageSettingsState";
+import ThemeContextType from "./globals/ThemeContextType";
 
 export type { 
     CompareAPIType, ComparismResponseItem, 
@@ -15,5 +16,6 @@ export type {
     AIModelItemType, AIModelState, 
     ButtonProps, TagInputProps,
     LoadingSliceState, ConfirmBoxProps,
-    FeedbackFormType, LanguageSettingsState
+    FeedbackFormType, LanguageSettingsState,
+    ThemeContextType
 };

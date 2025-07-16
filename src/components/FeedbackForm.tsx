@@ -29,7 +29,7 @@ const FeedbackForm: React.FC<FeedbackFormType> = ({ open = true, onConfirm, onCa
                         sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
                     >
                         <FormLabel
-                            id="feedback-type-label" 
+                            id="feedback-type-label"
                             className="!text-sm !text-gray-500"
                         >
                             {t("feedbackFormRequestType")}
@@ -92,7 +92,6 @@ const FeedbackForm: React.FC<FeedbackFormType> = ({ open = true, onConfirm, onCa
                     </Button>
                 </DialogContent>
                 <DialogActions>
-                    
                 </DialogActions>
             </form>
         </Dialog>

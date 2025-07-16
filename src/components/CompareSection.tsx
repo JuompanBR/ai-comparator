@@ -109,7 +109,7 @@ const CompareSection = () => {
             <div
               className={`w-full lg:w-1/2 relative block text-center ${selectedModels.length > 0 ? "lg:border-r" : ""} lg:pe-9 border-slate-200`}
             >
-              <h2 className="font-normal text-lg text-slate-700 my-9">
+              <h2 className="font-normal text-lg my-9">
                 {t("setCriteria")}
               </h2>
               <div
@@ -142,7 +142,7 @@ const CompareSection = () => {
           )}
           {selectedModels.length > 0 && (
             <div className="w-full lg:w-1/2 relative block text-center lg:ps-9">
-              <h2 className="font-normal text-lg text-slate-700 my-9">
+              <h2 className="font-normal text-lg my-9">
                 {t("setModels")}
               </h2>
               <div
@@ -192,7 +192,7 @@ const CompareSection = () => {
                 <li
                   key={key}
                   {...rest}
-                  className="text-sm px-2 py-2 my-1 hover:bg-gray-200 cursor-pointer select-none"
+                  className="text-sm px-2 py-2 my-1 hover:underline cursor-pointer select-none"
                 >
                   <p>{option.data[currentLang]}</p>
                 </li>
@@ -245,7 +245,7 @@ const CompareSection = () => {
                 <li
                   key={key}
                   {...rest}
-                  className="flex flex-col px-3 py-3 my-2 text-sm space-y-2 hover:bg-gray-200 cursor-pointer select-none"
+                  className="flex flex-col px-3 py-3 my-2 text-sm space-y-2 hover:underline cursor-pointer select-none"
                 >
                   <span className="w-fit relative inline-flex items-center space-x-2">
                     <a
@@ -304,7 +304,7 @@ const CompareSection = () => {
                 t("comparisonFormButton")
               )}
             </Button>
-            <div className="text-sm text-gray-700 font-medium text-center mt-5 space-x-2">
+            <div className="text-sm opacity-80 font-medium text-center mt-5 space-x-2">
               <Trans
                 i18nKey="comparisonFormFeedbackText"
                 components={{

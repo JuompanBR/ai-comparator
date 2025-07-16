@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     <>
       <div className="w-full min-h-screen flex flex-col container mx-auto overflow-x-hidden fadeIn">
         <Header />
-        <main className="items-center justify-center flex-1 px-4 lg:p-6 pb-8 lg:pb-22 text-gray-800 relative">
+        <main className="items-center justify-center flex-1 px-4 lg:p-6 pb-8 lg:pb-22 relative">
           <Hero />
           <br />
           <div id="how-to" className="lg:h-2 w-full relative block">
