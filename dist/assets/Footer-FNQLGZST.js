@@ -1,1 +1,0 @@
-import{j as e,C as t}from"./index-7F3b-KLr.js";const n=()=>e.jsx("footer",{className:"container mx-auto px-4 text-center py-9",children:e.jsxs("p",{className:"text-sm",children:[t("footerText")," ",e.jsx("a",{href:"https://www.linkedin.com/in/juompan-bill",target:"_blank",className:"text-red-600 underline",rel:"noreferrer",children:"Bill Juompan"})]})});export{n as default};
