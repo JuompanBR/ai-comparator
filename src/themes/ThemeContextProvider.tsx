@@ -29,7 +29,7 @@ const ThemeToggleContext = createContext<ThemeContextType>({
 
 const themeContext = () => useContext(ThemeToggleContext);
 const ThemeContextProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [mode, setMode] = useState<'light' | 'dark'>('light');
+  const [mode, setMode] = useState<'light' | 'dark'>('dark');
 
   const toggleTheme = (): void => {
     setMode((prev) => (prev === 'light' ? 'dark' : 'light'));

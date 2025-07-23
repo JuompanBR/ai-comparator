@@ -18,7 +18,9 @@ const Home: React.FC = () => {
           <div id="how-to" className="lg:h-2 w-full relative block">
 
           </div>
-          <CustomDivider />
+          <div className="relative mt-5">
+            <CustomDivider />
+          </div>
           <HowTo />
           <br className="hidden md:block"/>
           <hr className="block md:hidden text-gray-200 mt-22 mb-12"/>

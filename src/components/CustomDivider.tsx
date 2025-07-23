@@ -4,7 +4,10 @@ const CustomDivider: React.FC = () => {
     <>
       <div
         id="shapeRegion"
-        className="w-full lg:w-[80%] h-[100px] mx-auto block rounded-t-[900%] border-t border-amber-400"
+        className="w-[150%] -ms-[25%] lg:w-[80%] h-[100px] lg:mx-auto block rounded-t-[1200%] border-t border-amber-400"
+        style={{
+          boxShadow: "0 -20px 30px -10px rgba(251, 191, 36, 0.2)",
+        }}
       ></div>
     </>
   );
