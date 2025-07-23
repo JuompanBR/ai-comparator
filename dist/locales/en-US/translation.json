@@ -19,6 +19,7 @@
   "setModels": "Set your Models",
   "footerText": "Made with ❤️ in 2025 by",
   "comparisonFormTitle": "Comparison Form",
+  "comparisonFormHelperText": "Use the form below to set up your comparison.",
   "comparisonFormButton": "Compare",
   "comparisonFormFeedbackText": "Want us to get better ? <Link>Send Uu feedback</Link>",
   "confirmBoxContentText": "Do you confirm these selections ?",

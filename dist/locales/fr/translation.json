@@ -19,6 +19,7 @@
   "setModels": "Choisissez vos modèles",
   "footerText": "Fait avec ❤️ en 2025 par",
   "comparisonFormTitle": "Formulaire de Comparaison",
+  "comparisonFormHelperText": "Utilisez le formulaire ci-dessous pour configurer <br/> votre comparaison.",
   "comparisonFormButton": "Comparer",
   "comparisonFormFeedbackText": "Envie de nous aider à nous améliorer ? <br/><Link>Donnez-nous votre avis ici</Link>",
   "confirmBoxContentText": "Confirmez-vous ces sélections ?",

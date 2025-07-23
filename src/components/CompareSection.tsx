@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import { CompareAPI } from "../services";
 import { AIModelItemType, ComparismCriteriaItem, ComparismResponseItem } from "../types";
 import { TagInput } from ".";
 import { ConfirmBox } from ".";
@@ -155,7 +154,7 @@ const CompareSection = () => {
           )}
         </div>
         <div
-          className={`flex flex-col relative max-w-md w-full mx-auto ${selectedCriteria.length > 0 || selectedModels.length > 0 ? "mt-15" : "mt-12"}`}
+          className={`flex flex-col relative max-w-md w-full mx-auto ${selectedCriteria.length > 0 || selectedModels.length > 0 ? "mt-18" : "mt-12"}`}
         >
           <Autocomplete
             color="warning"

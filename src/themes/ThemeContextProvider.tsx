@@ -7,7 +7,7 @@ const lightTheme = createTheme({
   palette: {
     mode: 'light',
     primary: { main: '#1976d2' },
-    text: {primary: '#1d293d'},
+    text: { primary: '#1d293d' },
     secondary: { main: '#9c27b0' },
   },
 });
@@ -15,15 +15,15 @@ const lightTheme = createTheme({
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
-    background: {default: "hsl(210, 14%, 7%)"}, 
+    background: { default: "hsl(210, 14%, 7%)" },
     primary: { main: '#90caf9' },
-    text: {primary: "#ccc"},
+    text: { primary: "#ccc" },
     secondary: { main: '#ce93d8' },
   },
 });
 
 const ThemeToggleContext = createContext<ThemeContextType>({
-  toggleTheme: () => {},
+  toggleTheme: () => { },
   getCurrentTheme: () => 'light',
 });
 
@@ -51,4 +51,4 @@ const ThemeContextProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   );
 };
 
-export {themeContext, ThemeContextProvider};
+export { themeContext, ThemeContextProvider };
