@@ -1,6 +1,8 @@
 interface ComparismResponseItem {
+    userId: number,
     id?: string,
-    text?: string
+    title?: string,
+    body?: string
 };
 
 export default ComparismResponseItem;

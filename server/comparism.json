@@ -1,8 +1,22 @@
 {
   "compare": [
     {
-      "id": 1, 
+      "id": "1",
       "text": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quasi, dolor earum. Iusto perspiciatis et possimus veritatis omnis ea adipisci qui facilis doloribus corrupti modi, earum accusantium velit sit quae mollitia? \n Dolorum consequuntur excepturi accusantium eius perferendis et non, iste, placeat sit facere enim voluptas quaerat dicta delectus! Quas ipsa sapiente quae! Sapiente veniam molestias tempora odio officia aperiam tenetur voluptatem. \n Facere itaque nam eos hic delectus reiciendis dolore quasi? Nemo explicabo nisi ipsa possimus, mollitia unde perferendis ea voluptatibus adipisci nihil rerum sed excepturi cupiditate rem accusamus, porro eos recusandae. \n Adipisci consequatur dolore placeat tempore praesentium quas debitis saepe, ratione aliquid provident optio voluptatibus! Corrupti dolore et explicabo nobis incidunt minima maiores! Itaque sequi repellat fugiat. Quos perspiciatis autem veritatis."
+    },
+    {
+      "0": {
+        "id": "0.8426750923181732",
+        "data": "This is just test data"
+      },
+      "id": "7122"
+    },
+    {
+      "0": {
+        "id": "0.5558765059552329",
+        "data": "This is just test data"
+      },
+      "id": "6fc4"
     }
   ]
 }

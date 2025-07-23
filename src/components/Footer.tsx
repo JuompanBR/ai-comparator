@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
         {t("footerText")}{" "}<a
       href="https://www.linkedin.com/in/juompan-bill"
       target="_blank"
-      className="text-red-600 underline"
+      className="text-red-500 underline"
       rel="noreferrer"
     >
       Bill Juompan

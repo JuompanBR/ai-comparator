@@ -1,91 +1,81 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { CompareAPI } from "../services";
-import TagInput from "./TagInput";
-import {
-  AIModelItemType,
-  ComparismCriteriaItem,
-  ComparismResponseItem,
-} from "../types";
+import { AIModelItemType, ComparismCriteriaItem, ComparismResponseItem } from "../types";
+import { TagInput } from ".";
+import { ConfirmBox } from ".";
 import { Loader, Ban, ExternalLink } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  add,
-  remove,
-  addModel,
-  removeModel,
-  setIsLoading,
-} from "../stores/appStore";
-import { ConfirmBox } from ".";
-
+import { add, remove, addModel, removeModel, setIsLoading } from "../stores/appStore";
 import { TextField, Button, Autocomplete, Link } from "@mui/material";
 import { GENAIs, USERCRITERIA } from "../constands";
 import FeedbackForm from "./FeedbackForm";
 import { useTranslation, Trans } from "react-i18next";
+import { useCompareQuery } from "../hooks";
 
 const CompareSection = () => {
+
   const selectedCriteria: ComparismCriteriaItem[] = useSelector(
     (state: any) => state.comparismCriteria.comparismCriteria,
   );
-  const isLoading: boolean = useSelector(
-    (state: any) => state.isLoading.isLoading,
-  );
+  const isLoadingGlobalState: boolean = useSelector((state: any) => state.isLoading.isLoading);
   const selectedModels = useSelector((state: any) => state.aiModels.aiModels);
   const storeDispatcher = useDispatch();
-
   const [tagInputs, enableAnimations] = useAutoAnimate();
   const [modelsInput, enableModelsAnimations] = useAutoAnimate();
   const [selectionsBox, enableSelectionsBoxAnimations] = useAutoAnimate();
-
   const [openConfirm, setOpenConfirm] = useState<boolean>(false);
   const [feedbackOpen, setFeedbackOpen] = useState<boolean>(false);
-
   const [criteria, setCriteria] = useState<string>("");
   const [aiProduct, setAIs] = useState<string>("");
-  const [comparism, setComparism] = useState<ComparismResponseItem>({});
+  const [comparism, setComparism] = useState<ComparismResponseItem[] | null>(null);
   const criteriaInputFieldRef = useRef<HTMLInputElement>(null);
   const modelsInputFieldRef = useRef<HTMLInputElement>(null);
-
   const { t, i18n } = useTranslation();
+  const [submittedData, setSubmittedData] = useState<object[] | null>(null); // discriminated unions
+  const { data: comparisonResult, isLoading, error } = useCompareQuery(submittedData);
   const currentLang = (i18n.language as "en" | "fr") ?? "en";
-
-  const handleClear = async () => {
-    const response = confirm("Are you sure you want to clear ?");
-
-    if (response == true) {
-      setComparism({});
+  useEffect(() => {
+    if (error) {
+      alert("An error occurred while getting the resource.");
+      storeDispatcher(setIsLoading({ data: false }));
+      return;
     }
-    return;
-  };
 
-  const handleSubmit = async (): Promise<void> => {
-    setOpenConfirm(false);
-    storeDispatcher(setIsLoading({ data: true }));
+    if (comparisonResult) {
+      setOpenConfirm(false);
+      storeDispatcher(setIsLoading({ data: false }));
+      setComparism(comparisonResult);
 
-    const fakeData = [
-      {
-        id: "1",
-        data: "This is just test data",
-      },
-    ];
-
-    try {
-      // fetch using the mock server
-      const result = await CompareAPI.compare(fakeData);
-      setComparism(result[0]);
-
-      // Scroll to the results
+      // Scroll to results
       setTimeout(() => {
         document
           .getElementById("comparismReport")
           ?.scrollIntoView({ behavior: "smooth" });
       }, 300);
-    } catch (e) {
-      alert("An error occured while getting the resource.");
     }
+  }, [comparisonResult, isLoading, error]);
 
-    storeDispatcher(setIsLoading({ data: false }));
+  const handleClear = async () => {
+    const response = confirm("Are you sure you want to clear ?");
+
+    if (response == true) {
+      setComparism(null);
+    }
+    return;
   };
+
+  const handleSubmit = async (): Promise<void> => {
+
+    const queryParams = [{
+      number: Math.floor(Math.random() * 10) + 1
+    }];
+
+    setOpenConfirm(false);
+    setSubmittedData(queryParams); // trigger the hook now her
+    storeDispatcher(setIsLoading({ data: true }));
+  };
+
   return (
     <>
       <ConfirmBox
@@ -109,7 +99,7 @@ const CompareSection = () => {
             <div
               className={`w-full lg:w-1/2 relative block text-center ${selectedModels.length > 0 ? "lg:border-r" : ""} lg:pe-9 border-slate-200`}
             >
-              <h2 className="font-normal text-lg my-9">
+              <h2 className="font-normal text-[17px] lg:text-lg my-9">
                 {t("setCriteria")}
               </h2>
               <div
@@ -142,7 +132,7 @@ const CompareSection = () => {
           )}
           {selectedModels.length > 0 && (
             <div className="w-full lg:w-1/2 relative block text-center lg:ps-9">
-              <h2 className="font-normal text-lg my-9">
+              <h2 className="font-normal text-[17px] lg:text-lg my-9">
                 {t("setModels")}
               </h2>
               <div
@@ -291,14 +281,14 @@ const CompareSection = () => {
               variant="contained"
               type="button"
               disabled={
-                isLoading ||
+                isLoadingGlobalState ||
                 selectedCriteria.length <= 0 ||
                 selectedModels.length <= 0
               }
               className="w-full !bg-[#e38716] hover:!bg-[#e38716]/80 disabled:!bg-gray-200/20"
               onClick={() => setOpenConfirm(true)}
             >
-              {isLoading == true ? (
+              {isLoadingGlobalState == true ? (
                 <Loader className="animate-spin" />
               ) : (
                 t("comparisonFormButton")
@@ -323,51 +313,53 @@ const CompareSection = () => {
         <br />
         <br />
         <br />
-        {comparism.id && (
+        {comparism && (
           <section
-            id="comparismResult"
+            id="comparismReport"
             className="w-full h-fit my-5 flex flex-col justify-center items-start p-8 max-w-[1046px] mx-auto"
           >
             <h2
-              id="comparismReport"
-              className="font-bold text-2xl text-slate-700"
+
+              className="font-bold text-2xl"
             >
-              Report
+              Report: {comparism.length}
             </h2>
             <br />
-            <table className="min-w-full border border-gray-300 divide-y divide-gray-200 table-fixed">
-              <thead className="bg-gray-100">
-                <tr>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                    Id
-                  </th>
-                  <th className="px-4 py-2 text-left text-sm font-medium text-gray-700">
-                    Text
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                <tr>
-                  <td className="px-4 py-2 text-lg text-gray-800">
-                    {comparism.id}
-                  </td>
-                  <td className="px-4 py-2 text-lg text-amber-700">
-                    {comparism.text}
-                  </td>
-                </tr>
-              </tbody>
-              <tfoot className="relative">
-                <div className="relative float-right p-2 w-full flex flex-row-reverse">
-                  <button
-                    type="button"
-                    onClick={handleClear}
-                    className="cursor-pointer opacity-70 hover:opacity-100 flex space-x-1 justify-center items-center text-sm text-amber-600 border border-gray-200 py-1.5 px-2.5 rounded-full"
-                  >
-                    <span>Clear</span> <Ban size={18} />
-                  </button>
-                </div>
-              </tfoot>
-            </table>
+            <div className="overflow-x-auto w-full mt-5">
+              <table className="min-w-full border border-transparent divide-y divide-gray-200/30 table-auto">
+                <thead>
+                  <tr>
+                    <th className="px-4 py-2 text-left text-sm font-medium">Id</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium">Title</th>
+                    <th className="px-4 py-2 text-left text-sm font-medium">Body</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200/30">
+                  {comparism.map((item) => (
+                    <tr key={item?.id}>
+                      <td className="px-4 py-2 text-lg">{item?.id}</td>
+                      <td className="px-4 py-2 text-lg">{item?.title}</td>
+                      <td className="px-4 py-2 text-lg">{item?.body}</td>
+                    </tr>
+                  ))}
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colSpan={4}>
+                      <div className="w-full flex justify-end p-2">
+                        <button
+                          type="button"
+                          onClick={handleClear}
+                          className="cursor-pointer opacity-70 hover:opacity-100 flex space-x-1 justify-center items-center text-sm text-amber-600 border border-gray-200 py-1.5 px-2.5 rounded-full"
+                        >
+                          <span>Clear</span> <Ban size={18} />
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
           </section>
         )}
       </div>

@@ -5,9 +5,9 @@ class CompareAPI implements CompareAPIType {
         throw new Error("Method not implemented.");
     }
     
-    static async compare(data: object[]) {
+    static async compare(data: any): Promise<ComparismResponseItem[]> {
         try {
-            const response = await fetch('http://localhost:3001/compare', {
+            const response = await fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${data[0].number}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -18,6 +18,7 @@ class CompareAPI implements CompareAPIType {
             return result;
         } catch (error) {
             console.error('Error:', error);
+            return [];
         }
     }
 }
