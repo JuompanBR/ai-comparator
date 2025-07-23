@@ -1,0 +1,1 @@
+import{j as e,V as t}from"./index-D2nsOyJG.js";const n=()=>e.jsx("footer",{className:"container mx-auto px-4 text-center py-9",children:e.jsxs("p",{className:"text-sm",children:[t("footerText")," ",e.jsx("a",{href:"https://www.linkedin.com/in/juompan-bill",target:"_blank",className:"text-red-500 underline",rel:"noreferrer",children:"Bill Juompan"})]})});export{n as default};
