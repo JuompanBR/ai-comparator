@@ -2,11 +2,14 @@ import { RulerDimensionLine, MoveRight, Sun, Moon } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import {
+  Box,
+  Button,
   FormControl,
   InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
+  Typography,
 } from "@mui/material";
 import { setLanguage, selectLanguage } from "../stores/appStore";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,15 +53,15 @@ const Header: React.FC = () => {
         />
       </Link>
 
-      <span className="flex space-x-5 items-center">
+      <Box className="flex space-x-5 items-center">
         {!isComparePage && (
-          <p className="text-sm space-x-3 items-center underline hover:opacity-80 transition-all hidden lg:flex">
-            <span>{t('customizeLooks')}</span>
+          <Typography variant="body2" className="space-x-3 items-center underline hover:opacity-80 transition-all hidden lg:flex">
+            <Box>{t('customizeLooks')}</Box>
             <MoveRight className="arrow block relative" strokeWidth={1.5} />
-          </p>
+          </Typography>
         )}
 
-        <button
+        <Button
           type="button"
           onClick={() => toggleTheme()}
           aria-label="Toggle Theme"
@@ -69,7 +72,7 @@ const Header: React.FC = () => {
           ) : (
             <Sun className="text-white" strokeWidth={1.4} />
           )}
-        </button>
+        </Button>
 
         <FormControl>
           <Select
@@ -83,7 +86,7 @@ const Header: React.FC = () => {
             <MenuItem value="fr">Fr</MenuItem>
           </Select>
         </FormControl>
-      </span>
+      </Box>
     </header>
   );
 };

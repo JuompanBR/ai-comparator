@@ -1,3 +1,3 @@
-import useCompareQuery from "./useCompareQuery";
+import {useAddPostQuery, useCompareQuery} from "./useCompareQuery";
 
-export { useCompareQuery };
+export { useCompareQuery, useAddPostQuery };

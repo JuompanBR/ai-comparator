@@ -6,7 +6,6 @@ import { useTranslation, Trans } from "react-i18next";
 
 const Hero: React.FC = () => {
 
-  const app_name = import.meta.env.VITE_APPLICATION_NAME;
   const navigate = useNavigate();
   const { t } = useTranslation();
 

@@ -6,17 +6,20 @@ import { Loader, Ban, ExternalLink } from "lucide-react";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useDispatch, useSelector } from "react-redux";
 import { add, remove, addModel, removeModel, setIsLoading } from "../stores/appStore";
-import { TextField, Button, Autocomplete, Link } from "@mui/material";
+import { TextField, Button, Autocomplete, Link, Box } from "@mui/material";
 import { GENAIs, USERCRITERIA } from "../constands";
 import FeedbackForm from "./FeedbackForm";
 import { useTranslation, Trans } from "react-i18next";
-import { useCompareQuery } from "../hooks";
+import { useAddPostQuery, useCompareQuery } from "../hooks";
+import { compareApiResourceMapping } from "../services/api/CompareAPI";
 
 const CompareSection = () => {
 
   const selectedCriteria: ComparismCriteriaItem[] = useSelector(
     (state: any) => state.comparismCriteria.comparismCriteria,
   );
+
+  const jsonPlaceholderUrl = import.meta.env.VITE_JSON_SERVER_URL;
   const isLoadingGlobalState: boolean = useSelector((state: any) => state.isLoading.isLoading);
   const selectedModels = useSelector((state: any) => state.aiModels.aiModels);
   const storeDispatcher = useDispatch();
@@ -31,9 +34,12 @@ const CompareSection = () => {
   const criteriaInputFieldRef = useRef<HTMLInputElement>(null);
   const modelsInputFieldRef = useRef<HTMLInputElement>(null);
   const { t, i18n } = useTranslation();
-  const [submittedData, setSubmittedData] = useState<object[] | null>(null); // discriminated unions
-  const { data: comparisonResult, isLoading, error } = useCompareQuery(submittedData);
+  const [submittedData, setSubmittedData] = useState<object[] | null>(null);
+  const [postQueryData, setPostQueryData] = useState<ComparismCriteriaItem | null>(null);
+  const { data: comparisonResult, isLoading, error } = useCompareQuery(jsonPlaceholderUrl + compareApiResourceMapping.posts, submittedData);
+  const postQuery = useAddPostQuery(jsonPlaceholderUrl + compareApiResourceMapping.posts, postQueryData);
   const currentLang = (i18n.language as "en" | "fr") ?? "en";
+
   useEffect(() => {
     if (error) {
       alert("An error occurred while getting the resource.");
@@ -73,6 +79,8 @@ const CompareSection = () => {
     setOpenConfirm(false);
     setSubmittedData(queryParams); // trigger the hook now her
     storeDispatcher(setIsLoading({ data: true }));
+    setPostQueryData(selectedCriteria[0]);
+    alert("Element added successfully !")
   };
 
   return (
@@ -89,19 +97,19 @@ const CompareSection = () => {
         onCancel={() => setFeedbackOpen(false)}
         onConfirm={() => alert("Sent !")}
       />
-      <div className="w-full max-w-5xl mt-6 px-4 space-y-4 relative mx-auto">
-        <div
+      <Box className="w-full max-w-5xl mt-6 px-4 space-y-4 relative mx-auto">
+        <Box
           ref={selectionsBox}
           className="w-full relative flex flex-wrap gap-y-5 justify-center items-start"
         >
           {selectedCriteria.length > 0 && (
-            <div
+            <Box
               className={`w-full lg:w-1/2 relative block text-center ${selectedModels.length > 0 ? "lg:border-r" : ""} lg:pe-9 border-slate-200`}
             >
               <h2 className="font-normal text-[17px] lg:text-lg my-9">
                 {t("setCriteria")}
               </h2>
-              <div
+              <Box
                 ref={tagInputs}
                 className="relative flex flex-wrap gap-4 justify-center items-center transition-all"
               >
@@ -126,15 +134,15 @@ const CompareSection = () => {
                     </TagInput>
                   );
                 })}
-              </div>
-            </div>
+              </Box>
+            </Box>
           )}
           {selectedModels.length > 0 && (
-            <div className="w-full lg:w-1/2 relative block text-center lg:ps-9">
+            <Box className="w-full lg:w-1/2 relative block text-center lg:ps-9">
               <h2 className="font-normal text-[17px] lg:text-lg my-9">
                 {t("setModels")}
               </h2>
-              <div
+              <Box
                 ref={modelsInput}
                 className="relative flex flex-wrap gap-4 justify-center items-center transition-all"
               >
@@ -149,11 +157,11 @@ const CompareSection = () => {
                     {tag.name}
                   </TagInput>
                 ))}
-              </div>
-            </div>
+              </Box>
+            </Box>
           )}
-        </div>
-        <div
+        </Box>
+        <Box
           className={`flex flex-col relative max-w-md w-full mx-auto ${selectedCriteria.length > 0 || selectedModels.length > 0 ? "mt-18" : "mt-12"}`}
         >
           <Autocomplete
@@ -275,7 +283,7 @@ const CompareSection = () => {
               }
             }}
           />
-          <div className="w-full relative">
+          <Box className="w-full relative">
             <Button
               variant="contained"
               type="button"
@@ -293,7 +301,7 @@ const CompareSection = () => {
                 t("comparisonFormButton")
               )}
             </Button>
-            <div className="text-sm opacity-80 font-medium text-center mt-5 space-x-2">
+            <Box className="text-sm opacity-80 font-medium text-center mt-5 space-x-2">
               <Trans
                 i18nKey="comparisonFormFeedbackText"
                 components={{
@@ -306,9 +314,9 @@ const CompareSection = () => {
                   ),
                 }}
               />
-            </div>
-          </div>
-        </div>
+            </Box>
+          </Box>
+        </Box>
         <br />
         <br />
         <br />
@@ -324,8 +332,8 @@ const CompareSection = () => {
               Report: {comparism.length}
             </h2>
             <br />
-            <div className="overflow-x-auto w-full mt-5">
-              <table className="min-w-full border border-transparent divide-y divide-gray-200/30 table-auto">
+            <Box className="overflow-x-auto w-full mt-5">
+              <table className="min-w-full border border-transparent Boxide-y Boxide-gray-200/30 table-auto">
                 <thead>
                   <tr>
                     <th className="px-4 py-2 text-left text-sm font-medium">Id</th>
@@ -333,7 +341,7 @@ const CompareSection = () => {
                     <th className="px-4 py-2 text-left text-sm font-medium">Body</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200/30">
+                <tbody className="Boxide-y Boxide-gray-200/30">
                   {comparism.map((item) => (
                     <tr key={item?.id}>
                       <td className="px-4 py-2 text-lg">{item?.id}</td>
@@ -345,7 +353,7 @@ const CompareSection = () => {
                 <tfoot>
                   <tr>
                     <td colSpan={4}>
-                      <div className="w-full flex justify-end p-2">
+                      <Box className="w-full flex justify-end p-2">
                         <button
                           type="button"
                           onClick={handleClear}
@@ -353,15 +361,15 @@ const CompareSection = () => {
                         >
                           <span>Clear</span> <Ban size={18} />
                         </button>
-                      </div>
+                      </Box>
                     </td>
                   </tr>
                 </tfoot>
               </table>
-            </div>
+            </Box>
           </section>
         )}
-      </div>
+      </Box>
     </>
   );
 };
